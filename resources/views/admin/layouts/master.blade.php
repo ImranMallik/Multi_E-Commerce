@@ -89,7 +89,7 @@
     <script src="{{ asset('backend/assets/js/bootstrap-iconpicker.bundle.min.js') }}"></script>
     <script
         src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js
-                                                                                                                                                            ">
+                                                                                                                                                                        ">
     </script>
     {{-- Data Table --}}
     <script src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
@@ -131,9 +131,10 @@
                             url: deleteUrl,
 
                             success: function(data) {
-                                console.log(data);
-                                window.location.href =
-                                    "{{ route('admin.slider.index') }}";
+                                // console.log(data);
+                                // window.location.href =
+                                //     "{{ route('admin.slider.index') }}";
+                                window.location.reload();
 
                             },
                             error: function(xhr, status, error) {
