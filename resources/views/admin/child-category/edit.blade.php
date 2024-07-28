@@ -16,38 +16,48 @@
 
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('admin.sub-category.update', $subcategory->id) }}">
+                            <form method="POST" action="{{ route('admin.child-category.update', $childCategory->id) }}">
                                 @csrf
                                 @method('PUT')
 
                                 <div class="form-group">
-                                    <label for="status">Category</label>
-                                    <select id="status" name="category" class="form-control form-control-lg">
+                                    <label>Category</label>
+                                    <select class="form-control main-category" name="category_id" id="">
                                         <option value="">Select</option>
-                                        @foreach ($category as $value)
-                                            <option {{ $value->id == $subcategory->category_id ? 'selected' : '' }}
+                                        @foreach ($category as $cate)
+                                            <option {{ $cate->id == $childCategory->category_id ? 'selected' : '' }}
+                                                value="{{ $cate->id }}">{{ $cate->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="status">Sub Category</label>
+                                    <select id="status" name="subcategory"
+                                        class="form-control form-control-lg sub-category">
+                                        <option value="">Select</option>
+                                        @foreach ($subCategory as $value)
+                                            <option {{ $value->id == $childCategory->subcategory_id ? 'selected' : '' }}
                                                 value="{{ $value->id }}">{{ $value->name }}</option>
                                         @endforeach
+
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" value="{{ $subcategory->name }}" name="name"
+                                    <input type="text" value="{{ $childCategory->name }}" name="name"
                                         class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="status">Status</label>
-                                    <select id="status" name="status" class="form-control form-control-lg">
-                                        <option {{ $subcategory->status == 1 ? 'selected' : '' }} value="1">Active
+                                    <label for="inputState">State</label>
+                                    <select id="inputState" name="status" class="form-control">
+                                        <option {{ $childCategory->status == 1 ? 'select' : '' }} value="1">Active
                                         </option>
-                                        <option {{ $subcategory->status == 0 ? 'selected' : '' }} value="0">Inactive
+                                        <option {{ $childCategory->status == 0 ? 'select' : '' }} value="0">Inactive
                                         </option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                </div>
+                                <button type="submit" class="btn btn-primary">Update</button>
                             </form>
                         </div>
 
@@ -59,3 +69,34 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('body').on('change', '.main-category', function() {
+                // alert('Hello');
+                let id = $(this).val();
+                // console.log(id);
+                $.ajax({
+                    method: 'GET',
+                    url: "{{ route('admin.get-subcategories') }}",
+                    data: {
+                        id: id,
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                        $('.sub-category').html(` <option value="">Select</option>`)
+                        $.each(data, function(i, item) {
+                            $('.sub-category').append(
+                                ` <option value="${item.id}">${item.name}</option>`)
+                        })
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                })
+            })
+        })
+    </script>
+@endpush

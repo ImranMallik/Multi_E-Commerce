@@ -87,10 +87,7 @@
     <script src="{{ asset('backend/assets/js/scripts.js') }}"></script>
     <script src="{{ asset('backend/assets/js/custom.js') }}"></script>
     <script src="{{ asset('backend/assets/js/bootstrap-iconpicker.bundle.min.js') }}"></script>
-    <script
-        src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js
-                                                                                                                                                                        ">
-    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     {{-- Data Table --}}
     <script src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
     {{-- Sweet Alert --}}
@@ -129,12 +126,31 @@
                         $.ajax({
                             type: 'DELETE',
                             url: deleteUrl,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
 
                             success: function(data) {
                                 // console.log(data);
-                                // window.location.href =
-                                //     "{{ route('admin.slider.index') }}";
-                                window.location.reload();
+                                if (data.status === 'success') {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        data.message,
+                                        'success'
+                                    ).then(() => {
+                                        window.location.reload();
+                                    });
+
+                                    window.location.reload();
+                                } else if (data.status === 'error') {
+                                    Swal.fire(
+                                        'Cant Delete',
+                                        data.message,
+                                        'error'
+                                    )
+                                }
+
+
 
                             },
                             error: function(xhr, status, error) {
@@ -142,11 +158,7 @@
                             }
 
                         })
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success"
-                        });
+
                     }
                 });
             })
