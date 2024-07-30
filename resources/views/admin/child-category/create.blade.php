@@ -2,7 +2,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Sub Category</h1>
+            <h1>Child Category</h1>
 
         </div>
         <div class="section-body">
@@ -10,7 +10,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Create Sub Categories</h4>
+                            <h4>Create Child Categories</h4>
                         </div>
 
                         <div class="card-body">

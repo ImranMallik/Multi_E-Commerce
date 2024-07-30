@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\DataTables\SubCategoryDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\ChildCategory;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Str;
@@ -99,8 +100,12 @@ class SubCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $category = SubCategory::findOrFail($id);
-        $category->delete();
+        $subcategory = SubCategory::findOrFail($id);
+        $childCategory = ChildCategory::where('subcategory_id', $subcategory->id)->count();
+        if ($childCategory > 0) {
+            return response(['status' => 'error', 'message' => 'This items contain Sub Contain Sub Items For Deleted this you have to delete the sub Items first!']);
+        }
+        $subcategory->delete();
 
         return response(['status' => 'success', 'Deleted Successfully!']);
     }
