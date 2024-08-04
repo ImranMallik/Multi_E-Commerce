@@ -141,7 +141,6 @@
                                         window.location.reload();
                                     });
 
-                                    window.location.reload();
                                 } else if (data.status === 'error') {
                                     Swal.fire(
                                         'Cant Delete',
@@ -157,7 +156,7 @@
                                 console.log(error);
                             }
 
-                        })
+                        });
 
                     }
                 });
