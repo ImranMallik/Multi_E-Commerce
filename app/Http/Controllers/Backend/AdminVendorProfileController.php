@@ -56,7 +56,7 @@ class AdminVendorProfileController extends Controller
         $vendor->insta_link = $request->insta_link;
         $vendor->tw_link = $request->tw_link;
         $vendor->save();
-        toastr('Updated Successfully!', 'success');
+        toastr('Update Successfully!', 'success');
         return redirect()->back();
     }
 

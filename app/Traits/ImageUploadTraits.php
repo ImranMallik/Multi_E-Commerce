@@ -20,6 +20,21 @@ trait ImageUploadTraits
       return $path . '/' . $imageName;
     }
   }
+  // Upload Multipal Image Upload
+  public function uploadMultipleImage(Request $request, $inputName, $path)
+  {
+    if ($request->hasFile($inputName)) {
+      $imagePaths = [];
+      $images = $request->{$inputName};
+      foreach ($images as $image) {
+        $text = $image->getClientOriginalExtension();
+        $imageName = 'media_' . uniqid() . '.' . $text;
+        $image->move(public_path($path), $imageName);
+        $imagePaths[] = $path . '/' . $imageName;
+      }
+      return $imagePaths;
+    }
+  }
 
   // Function For Edit Image And Old Image Delete
 
