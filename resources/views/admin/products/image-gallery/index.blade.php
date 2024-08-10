@@ -5,6 +5,7 @@
             <h1>Product Image Gallery</h1>
 
         </div>
+
         <div class="mb-3">
             {{-- <button class="btn btn-primary">Back</button> --}}
             <a href="{{ route('admin.products.index') }}" class="btn btn-primary">Back</a>
