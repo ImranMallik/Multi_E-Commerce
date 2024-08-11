@@ -6,7 +6,8 @@
 
         </div>
         <div class="mb-3">
-            <a href="{{ route('admin.products.index') }}" class="btn btn-primary">Back</a>
+            <a href="{{ route('admin.products-variants-items.index', ['productId' => $product->id, 'variantId' => $variant->id]) }}"
+                class="btn btn-primary">Back</a>
         </div>
 
         <div class="section-body">
@@ -19,7 +20,7 @@
 
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('admin.products-variant.store') }}">
+                            <form method="POST" action="{{ route('admin.products-variants-items.store') }}">
                                 @csrf
 
                                 <div class="form-group">
@@ -28,8 +29,16 @@
                                         class="form-control" readonly>
                                 </div>
                                 <div class="form-group">
+                                    <input type="hidden" name="product_variant_id" value="{{ $variant->id }}"
+                                        class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}" class="form-control"
+                                        readonly>
+                                </div>
+                                <div class="form-group">
                                     <label>Item Name</label>
-                                    <input type="text" name="item_name" class="form-control">
+                                    <input type="text" name="name" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Price<code>(Set 0 for make it free)</code></label>
@@ -37,7 +46,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="status">Is Default</label>
-                                    <select id="status" name="status" class="form-control form-control-lg">
+                                    <select id="status" name="is_default" class="form-control form-control-lg">
                                         <option value="">Select</option>
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>

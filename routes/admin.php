@@ -25,7 +25,7 @@ Route::post('profile/update/password', [ProfileController::class, 'updatePasswor
 Route::resource('slider', SliderController::class);
 
 // Category Route------
-Route::put('change-status', [CategoryController::class, 'changeStatus'])->name('category.change-status');
+Route::put('category/change-status', [CategoryController::class, 'changeStatus'])->name('category.change-status');
 Route::resource('category', CategoryController::class);
 // Sub-Category Route------
 Route::put('sub-category/change-status', [SubCategoryController::class, 'changeStatus'])->name('sub-category.change-status');
@@ -56,4 +56,15 @@ Route::resource('products-variant', ProductVariantController::class);
 
 //  ----------Product Variant Items Route ----------
 Route::get('products-variants-items/{productId}/{variantId}', [ProductVariantItemController::class, 'index'])->name('products-variants-items.index');
-Route::get('products-variants-items-create/{variantId}', [ProductVariantItemController::class, 'create'])->name('products-variants-items.create');
+
+Route::get('products-variants-items-create/{productId}/{variantId}', [ProductVariantItemController::class, 'create'])->name('products-variants-items.create');
+
+Route::post('store/products-variants-items', [ProductVariantItemController::class, 'store'])->name('products-variants-items.store');
+
+Route::put('product-variant-item/change-status', [ProductVariantItemController::class, 'itemChangeStatus'])->name('product-variant-item.change-status');
+
+Route::get('edit/products-variants-items/{id}', [ProductVariantItemController::class, 'editProductVariantItem'])->name('products-variants-items.edit');
+
+Route::post('update/products-variants-items/{id}', [ProductVariantItemController::class, 'updateProductVariantItem'])->name('products-variants-items.update');
+
+Route::delete('delete/products-variants-items/{id}', [ProductVariantItemController::class, 'destroyProductVariantItem'])->name('products-variants-items.destroy');
