@@ -1,8 +1,8 @@
-@extends('frontend.dashboard.latouts.master')
+@extends('vendor.layouts.master')
 @section('content')
     <section id="wsus__dashboard">
         <div class="container-fluid">
-            @extends('frontend.dashboard.latouts.sidebar')
+            @extends('vendor.layouts.sidebar')
 
             <div class="row">
                 <div class="col-xl-9 col-xxl-10 col-lg-9 ms-auto">
@@ -10,8 +10,8 @@
                         <h3><i class="far fa-user"></i> profile</h3>
                         <div class="wsus__dashboard_profile">
                             <div class="wsus__dash_pro_area">
-                                <h4>User information</h4>
-                                <form action="{{ route('user.profile.update') }}" method="post"
+                                <h4>Vendor information</h4>
+                                <form action="{{ route('vendor.profile.update') }}" method="post"
                                     enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
@@ -44,7 +44,7 @@
                                     </div>
                                 </form>
 
-                                <form action="{{ route('user.update.password') }}" method="POST">
+                                <form action="{{ route('vendor.update.password') }}" method="POST">
                                     @csrf
 
                                     <div class="wsus__dash_pass_change mt-2">

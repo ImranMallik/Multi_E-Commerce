@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\ProductImageGallery;
+use App\Models\VendorProductImageGallery;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +13,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ProductImageGalleryDataTable extends DataTable
+class VendorProductImageGalleryDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -24,12 +25,12 @@ class ProductImageGalleryDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
 
-                $deleteBtn = "<a href='" . route('admin.product-image-gallery.destroy', $query->id) . "' class='btn btn-danger ml-2 delet-item'><i class='fas fa-trash-alt'></i></a>";
+                $deleteBtn = "<a href='" . route('vendor.products-image-gallery.destroy', $query->id) . "' class='btn btn-danger ml-2 delet-item'><i class='fas fa-trash-alt'></i></a>";
 
                 return $deleteBtn;
             })
             ->addColumn('image', function ($query) {
-                return $img = "<img width = '200px' src='" . asset($query->image) . "'></img>";
+                return $img = "<img class='rounded' width = '200px' src='" . asset($query->image) . "'></img>";
             })
             ->rawColumns(['image', 'action'])
             ->setRowId('id');
@@ -53,7 +54,7 @@ class ProductImageGalleryDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
-            ->orderBy(1)
+            ->orderBy(0)
             ->selectStyleSingle()
             ->buttons([
                 Button::make('excel'),
@@ -86,6 +87,6 @@ class ProductImageGalleryDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'ProductImageGallery_' . date('YmdHis');
+        return 'VendorProductImageGallery_' . date('YmdHis');
     }
 }

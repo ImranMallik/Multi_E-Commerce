@@ -36,7 +36,7 @@
   ==============================-->
     <div class="wsus__dashboard_menu">
         <div class="wsusd__dashboard_user">
-            <img src="{{ asset('frontend/assets/images/dashboard_user.jpg') }}" alt="img" class="img-fluid">
+            <img src="{{ asset(auth()->user()->image) }}" alt="img" class="img-fluid">
             <p>{{ auth()->user()->name }}</p>
         </div>
     </div>
@@ -103,7 +103,7 @@
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js
-            "></script>
+                    "></script>
     <script>
         @if ($errors->any())
             @foreach ($errors->all() as $error)

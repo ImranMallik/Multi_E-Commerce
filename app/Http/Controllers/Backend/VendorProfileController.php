@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
+use File;
 
-class UserProfileController extends Controller
+class VendorProfileController extends Controller
 {
-    //
-
     public function index()
     {
-        return view('frontend.dashboard.profile');
+        return view('vendor.dashboard.profile');
     }
 
     public function updateProfile(Request $request)
@@ -43,10 +41,12 @@ class UserProfileController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->save();
-
-        toastr()->success('Profile Updated Successfully');
-        return redirect()->back();
+        // toastr()->success('Profile Updated Successfully');
+        // toastr('Profile Updated Successfully', 'success');
+        return redirect()->back()->with('success', 'Profile Updated Successfully');
     }
+
+    // Update Password
 
     public function updatePassword(Request $request)
     {
@@ -58,7 +58,7 @@ class UserProfileController extends Controller
         $request->user()->update([
             'password' => bcrypt($request->password)
         ]);
-        toastr()->success('Password Updated Successfully!');
-        return redirect()->back();
+        // toastr()->success('Password Updated Successfully!');
+        return redirect()->back()->with('success', 'Password Updated Successfully');
     }
 }

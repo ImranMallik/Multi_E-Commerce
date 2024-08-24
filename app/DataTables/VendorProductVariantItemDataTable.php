@@ -2,7 +2,8 @@
 
 namespace App\DataTables;
 
-use App\Models\ChildCategory;
+use App\Models\ProductVariantItem;
+use App\Models\VendorProductVariantItem;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +13,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ChildCategoryDataTable extends DataTable
+class VendorProductVariantItemDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,42 +24,47 @@ class ChildCategoryDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $editBtn = "<a href='" . route('admin.child-category.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
-                $deleteBtn = "<a href='" . route('admin.child-category.destroy', $query->id) . "' class='btn btn-danger ml-2 delet-item'><i class='fas fa-trash-alt'></i></a>";
+
+                $editBtn = "<a href='" . route('vendor.product-variant-item.edit', $query->id) . "' class='btn btn-primary mx-2'><i class='far fa-edit'></i></a>";
+                $deleteBtn = "<a href='" . route('vendor.product-variant-item.destroy', $query->id) . "' class='btn btn-danger ml-2 delet-item my-2'><i class='fas fa-trash-alt'></i></a>";
 
                 return $editBtn . $deleteBtn;
             })
-            ->addColumn('category', function ($query) {
-                return $query->categoryname->name;
-            })
-            ->addColumn('subcategory', function ($query) {
-                return $query->subcategory->name;
+            ->addColumn('variant_name', function ($query) {
+                return $query->ProductVariant->name;
             })
             ->addColumn('status', function ($query) {
+
                 if ($query->status == 1) {
-                    $button = '<label class="custom-switch mt-2">
-                    <input type="checkbox" checked data-id="' . $query->id . '" name="custom-switch-checkbox" class="custom-switch-input change-status">
-                    <span class="custom-switch-indicator"></span>
-                  </label>';
+                    $button = '<div class="form-check form-switch">
+                     <input class="form-check-input change-status" checked data-id="' . $query->id . '" type="checkbox" id="flexSwitchCheckDefault">
+                     </div>';
                 } else {
 
-                    $button = '<label class="custom-switch mt-2">
-                    <input type="checkbox" data-id="' . $query->id . '" name="custom-switch-checkbox" class="custom-switch-input change-status">
-                    <span class="custom-switch-indicator"></span>
-                  </label>';
+                    $button = '<div class="form-check form-switch">
+                <input class="form-check-input change-status"  data-id="' . $query->id . '" type="checkbox" id="flexSwitchCheckDefault">
+                </div>';
                 }
                 return $button;
             })
-            ->rawColumns(['action', 'status'])
+            ->addColumn('is_defult', function ($query) {
+
+                if ($query->is_default == 1) {
+                    return '<i class="badge bg-success">Yes</i>';
+                } else {
+                    return '<i class="badge bg-danger">No</i>';
+                }
+            })
+            ->rawColumns(['status', 'action', 'is_defult'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(ChildCategory $model): QueryBuilder
+    public function query(ProductVariantItem $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->where('product_variant_id', request()->variantId)->newQuery();
     }
 
     /**
@@ -67,7 +73,7 @@ class ChildCategoryDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('childcategory-table')
+            ->setTableId('productvariantitem-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
@@ -89,11 +95,11 @@ class ChildCategoryDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-
             Column::make('id'),
-            Column::make('name'),
-            Column::make('category'),
-            Column::make('subcategory'),
+            Column::make('name')->width(200),
+            Column::make('variant_name')->width(200),
+            Column::make('price'),
+            Column::make('is_defult'),
             Column::make('status'),
             Column::computed('action')
                 ->exportable(false)
@@ -108,6 +114,6 @@ class ChildCategoryDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'ChildCategory_' . date('YmdHis');
+        return 'VendorProductVariantItem_' . date('YmdHis');
     }
 }

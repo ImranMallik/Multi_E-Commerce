@@ -50,7 +50,7 @@ class ProductDataTable extends DataTable
                     case 'is_best':
                         return '<i class = "badge badge-warning">Best Product</i>';
                         break;
-                    case 'is_fetured':
+                    case 'featured_product':
                         return '<i class = "badge badge-primary">Featured Product</i>';
                         break;
                     default:
@@ -94,7 +94,7 @@ class ProductDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
-            ->orderBy(1)
+            ->orderBy(0)
             ->selectStyleSingle()
             ->buttons([
                 Button::make('excel'),

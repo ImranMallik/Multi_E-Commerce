@@ -1,9 +1,11 @@
 @extends('admin.layouts.master')
 @section('content')
     <section class="section">
-        <div class="section-header">
+        <div class="section-header d-flex justify-content-between align-items-center">
             <h1>Sub Category</h1>
-
+            <a href="{{ route('admin.sub-category.index') }}" class="btn btn-primary">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
         </div>
 
         <div class="section-body">

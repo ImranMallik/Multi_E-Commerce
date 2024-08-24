@@ -83,7 +83,7 @@ class ChildCategoryController extends Controller
     {
         $request->validate([
             'category_id' => ['required'],
-            'sub_category_id' => ['required'],
+            'subcategory' => ['required'],
             'name' => ['required', 'max:200', 'unique:child_categories,name,' . $id],
             'status' => ['required']
         ]);
