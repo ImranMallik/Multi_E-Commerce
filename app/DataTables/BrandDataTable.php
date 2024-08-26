@@ -56,7 +56,8 @@ class BrandDataTable extends DataTable
                 return $button;
             })
             ->rawColumns(['action', 'logo', 'is_featured', 'status'])
-            ->setRowId('id');
+            ->setRowId('id')
+            ->setRowClass('table-row');
     }
 
     /**

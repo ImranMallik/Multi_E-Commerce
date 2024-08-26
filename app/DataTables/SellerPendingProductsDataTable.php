@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Product;
+use App\Models\SellerPendingProduct;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
@@ -13,7 +14,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ProductDataTable extends DataTable
+class SellerPendingProductsDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -26,55 +27,70 @@ class ProductDataTable extends DataTable
             ->addColumn('action', function ($query) {
                 $editBtn = "<a href='" . route('admin.products.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
                 $deleteBtn = "<a href='" . route('admin.products.destroy', $query->id) . "' class='btn btn-danger ml-2 delet-item'><i class='fas fa-trash-alt'></i></a>";
-                $newBtn = '<div class="dropleft d-inline ml-2">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-cog"></i>
-                </button>
-                <div class="dropdown-menu" x-placement="top-start" style="position: absolute; transform: translate3d(0px, -132px, 0px); top: 0px; left: 0px; will-change: transform;">
-                  <a class="dropdown-item has-icon" href="' . route('admin.product-image-gallery.index', ['product' => $query->id]) . '"><i class="fas fa-images"></i></i>Image Gallery</a>
-                  <a class="dropdown-item has-icon" href="' . route('admin.products-variant.index', ['product' => $query->id]) . '"><i class="fas fa-sitemap"></i>Variants</a>
-                 
-              </div>';
-                return $editBtn . $deleteBtn . $newBtn;
+
+
+
+                return $editBtn . $deleteBtn;
             })
             ->addColumn('image', function ($query) {
-                return "<img width='70px' src='" . asset($query->thumb_image) . "' alt='Thumb Image'/>";
+                return $img = "<img width = '70px' src='" . asset($query->thumb_image) . "'></img>";
             })
-            ->addColumn('type', function ($query) {
+            ->addColumn('product_type', function ($query) {
                 switch ($query->product_type) {
                     case 'new_arrival':
-                        return '<i class = "badge badge-success">New Arrival</i>';
-                        break;
-                    case 'is_top':
-                        return '<i class = "badge badge-info">Top Product</i>';
-                        break;
-                    case 'is_best':
-                        return '<i class = "badge badge-warning">Best Product</i>';
+                        return '<i class="badge badge-success">New Arrival</i>';
                         break;
                     case 'featured_product':
-                        return '<i class = "badge badge-primary">Featured Product</i>';
+                        return '<i class="badge badge-warning">Featured Product</i>';
                         break;
+                    case 'top_product':
+                        return '<i class="badge badge-danger">Top Product</i>';
+                        break;
+                    case 'is_best':
+                        return '<i class="badge badge-info">Best Product</i>';
+                        break;
+
                     default:
-                        return '<i class = "badge badge-dark">None</i>';
+                        return '<i class="badge badge-dark">None</i>';
+                        break;
                 }
             })
             ->addColumn('status', function ($query) {
                 if ($query->status == 1) {
                     $button = '<label class="custom-switch mt-2">
-                    <input type="checkbox" checked data-id="' . $query->id . '" name="custom-switch-checkbox" class="custom-switch-input change-status">
-                    <span class="custom-switch-indicator"></span>
-                  </label>';
+            <input type="checkbox" checked data-id="' . $query->id . '" name="custom-switch-checkbox" class="custom-switch-input change-status">
+            <span class="custom-switch-indicator"></span>
+          </label>';
                 } else {
 
                     $button = '<label class="custom-switch mt-2">
-                    <input type="checkbox" data-id="' . $query->id . '" name="custom-switch-checkbox" class="custom-switch-input change-status">
-                    <span class="custom-switch-indicator"></span>
-                  </label>';
+            <input type="checkbox" data-id="' . $query->id . '" name="custom-switch-checkbox" class="custom-switch-input change-status">
+            <span class="custom-switch-indicator"></span>
+          </label>';
                 }
                 return $button;
             })
-            ->rawColumns(['image', 'type', 'status', 'action'])
-            ->setRowId('id');
+            ->addColumn('vendor', function ($query) {
+                if ($query->getVendorId && $query->getVendorId->shop_name) {
+                    return '<span class="badge bg-success">' . $query->getVendorId->shop_name . '</span>';
+                } else {
+                    return '<span class="badge bg-warning">No Shop Name</span>';
+                }
+            })
+
+
+            ->addColumn('approve', function ($query) {
+                return "<select class='form-control custom-select is_approve' data-id='$query->id'>
+                            <option value='0' " . ($query->is_approved == 0 ? 'selected' : '') . ">Pending</option>
+                            <option value='1' " . ($query->is_approved == 1 ? 'selected' : '') . ">Approved</option>
+                        </select>";
+            })
+
+
+
+            ->rawColumns(['image', 'product_type', 'vendor', 'status', 'approve', 'action'])
+            ->setRowId('id')
+            ->setRowClass('table-row');
     }
 
     /**
@@ -82,7 +98,9 @@ class ProductDataTable extends DataTable
      */
     public function query(Product $model): QueryBuilder
     {
-        return $model->where('vendor_id', Auth::user()->vendor->user_id)->newQuery();
+        return $model->where('vendor_id', '!=', Auth::user()->vendor->user_id)
+            ->where('is_approved', 0)
+            ->newQuery();
     }
 
     /**
@@ -113,13 +131,15 @@ class ProductDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-
             Column::make('id'),
+            // Column::make('vendor'),
             Column::make('image'),
             Column::make('name'),
+            Column::make('vendor'),
             Column::make('price'),
-            Column::make('type'),
-            Column::make('status')->width(100),
+            Column::make('product_type')->width(150),
+            Column::make('status'),
+            Column::make('approve')->width(120),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
@@ -133,6 +153,6 @@ class ProductDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Product_' . date('YmdHis');
+        return 'SellerPendingProducts_' . date('YmdHis');
     }
 }
