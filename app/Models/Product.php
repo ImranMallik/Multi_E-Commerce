@@ -12,4 +12,16 @@ class Product extends Model
     {
         return $this->belongsTo(AdminVendor::class, 'vendor_id');
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    // Multiples Images
+
+    public function multiplesImages()
+    {
+        return $this->hasMany(ProductImageGallery::class);
+    }
 }

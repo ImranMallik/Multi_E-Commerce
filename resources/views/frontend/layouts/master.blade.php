@@ -133,7 +133,7 @@
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js
-                "></script>
+                        "></script>
     <script>
         @if ($errors->any())
             @foreach ($errors->all() as $error)
@@ -141,6 +141,7 @@
             @endforeach
         @endif
     </script>
+    @stack('scripts')
 </body>
 
 </html>

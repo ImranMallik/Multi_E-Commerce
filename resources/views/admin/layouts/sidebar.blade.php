@@ -55,7 +55,6 @@
                     'admin.products.index',
                     'admin.seller-products',
                     'admin.seller-pending-products',
-                    'admin.flash-sale.*',
                 ]) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                     <i class="fas fa-boxes"></i>
