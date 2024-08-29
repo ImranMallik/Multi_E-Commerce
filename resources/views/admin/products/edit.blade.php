@@ -33,7 +33,7 @@
                                     <div class="form-group col-md-4">
                                         <label>Category</label>
                                         <select id="category" name="category" class="form-control main-category">
-                                            <option>Select</option>
+                                            <option value="">Select</option>
                                             @foreach ($categories as $categori)
                                                 <option {{ $categori->id == $editData->category_id ? 'selected' : '' }}
                                                     value="{{ $categori->id }}">{{ $categori->name }}</option>
@@ -43,7 +43,7 @@
                                     <div class="form-group col-md-4">
                                         <label>Sub Category</label>
                                         <select id="sub_category" name="sub_category" class="form-control sub-category">
-                                            <option>Select</option>
+                                            <option value="">Select</option>
                                             @foreach ($subCategories as $subCategory)
                                                 <option
                                                     {{ $subCategory->id == $editData->sub_category_id ? 'selected' : '' }}
@@ -58,7 +58,7 @@
                                         <label>Child Category</label>
                                         <select id="child_category" name="child_category"
                                             class="form-control child-category">
-                                            <option>Select</option>
+                                            <option value="">Select</option>
                                             @foreach ($childCategories as $childCategory)
                                                 <option
                                                     {{ $childCategory->id == $editData->child_category_id ? 'selected' : '' }}

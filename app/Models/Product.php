@@ -24,4 +24,14 @@ class Product extends Model
     {
         return $this->hasMany(ProductImageGallery::class);
     }
+
+    public function productVariants()
+    {
+        return $this->hasMany(ProductVariant::class, 'product_id');
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
+    }
 }

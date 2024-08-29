@@ -27,10 +27,19 @@ class SellerProductsDataTable extends DataTable
             ->addColumn('action', function ($query) {
                 $editBtn = "<a href='" . route('admin.products.edit', $query->id) . "' class='btn btn-primary'><i class='far fa-edit'></i></a>";
                 $deleteBtn = "<a href='" . route('admin.products.destroy', $query->id) . "' class='btn btn-danger ml-2 delet-item'><i class='fas fa-trash-alt'></i></a>";
+                $newBtn = '<div class="dropleft d-inline ml-2">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-cog"></i>
+                </button>
+                <div class="dropdown-menu" x-placement="top-start" style="position: absolute; transform: translate3d(0px, -132px, 0px); top: 0px; left: 0px; will-change: transform;">
+                  <a class="dropdown-item has-icon" href="' . route('admin.product-image-gallery.index', ['product' => $query->id]) . '"><i class="fas fa-images"></i></i>Image Gallery</a>
+                  <a class="dropdown-item has-icon" href="' . route('admin.products-variant.index', ['product' => $query->id]) . '"><i class="fas fa-sitemap"></i>Variants</a>
+                 
+              </div>';
 
 
 
-                return $editBtn . $deleteBtn;
+                return $editBtn . $deleteBtn . $newBtn;
             })
             ->addColumn('image', function ($query) {
                 return $img = "<img width = '70px' src='" . asset($query->thumb_image) . "'></img>";
