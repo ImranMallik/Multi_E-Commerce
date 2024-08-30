@@ -99,13 +99,16 @@
                                         <i class="fas fa-star-half-alt"></i>
                                         <span>(133 review)</span>
                                     </p>
-                                    <a class="wsus__pro_name" href="#">{{ $product->name }}</a>
+                                    <a class="wsus__pro_name" title="{{ $product->name }}"
+                                        href="{{ route('products-details', $product->slug) }}">
+                                        {{ limitText($product->name, 15) }}
+                                    </a>
                                     @if (hasDiscounts($product))
-                                        <p class="wsus__price">${{ $product->offer_price }}
-                                            <del>${{ $product->price }}</del>
+                                        <p class="wsus__price">{{ $currency->currency_icon }}{{ $product->offer_price }}
+                                            <del>{{ $currency->currency_icon }}{{ $product->price }}</del>
                                         </p>
                                     @else
-                                        <p class="wsus__price">$159</p>
+                                        <p class="wsus__price">{{ $currency->currency_icon }}{{ $product->price }}</p>
                                     @endif
                                     <a class="add_cart" href="#">add to cart</a>
                                 </div>

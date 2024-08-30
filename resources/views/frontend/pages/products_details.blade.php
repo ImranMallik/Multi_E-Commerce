@@ -341,11 +341,7 @@
                                         data-bs-target="#pills-home22" type="button" role="tab"
                                         aria-controls="pills-home" aria-selected="true">Description</button>
                                 </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-profile-tab7" data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile22" type="button" role="tab"
-                                        aria-controls="pills-profile" aria-selected="false">Information</button>
-                                </li>
+
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
                                         data-bs-target="#pills-contact" type="button" role="tab"
@@ -356,16 +352,7 @@
                                         data-bs-target="#pills-contact2" type="button" role="tab"
                                         aria-controls="pills-contact2" aria-selected="false">Reviews</button>
                                 </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-contact-tab23" data-bs-toggle="pill"
-                                        data-bs-target="#pills-contact23" type="button" role="tab"
-                                        aria-controls="pills-contact23" aria-selected="false">comment</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-contact-tab239" data-bs-toggle="pill"
-                                        data-bs-target="#pills-contact239" type="button" role="tab"
-                                        aria-controls="pills-contact239" aria-selected="false">faqs</button>
-                                </li>
+
                             </ul>
                             <div class="tab-content" id="pills-tabContent4">
                                 <div class="tab-pane fade  show active " id="pills-home22" role="tabpanel"
@@ -373,131 +360,27 @@
                                     <div class="row">
                                         <div class="col-xl-12">
                                             <div class="wsus__description_area">
-                                                <h1>Heading</h1>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum
-                                                    sapiente aliquam ut neque voluptatibus inventore odit nesciunt.
-                                                    Nobis quas saepe repellat repudiandae qui sint? Delectus dignissimos
-                                                    maiores fuga doloremque magni, ratione provident exercitationem
-                                                    aliquam tempore velit facere autem magnam, architecto inventore
-                                                    recusandae dolorum, illo sequi officiis dolore! Unde enim,
-                                                    exercitationem. Lorem ipsum</p>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum
-                                                    sapiente aliquam ut neque voluptatibus inventore odit nesciunt.
-                                                    Nobis quas saepe repellat repudiandae qui sint? Delectus dignissimos
-                                                    maiores fuga doloremque magni, ratione provident exercitationem
-                                                    aliquam tempore velit facere autem magnam, architecto inventore
-                                                    recusandae dolorum, illo sequi officiis dolore! Unde enim,
-                                                    exercitationem. Lorem ipsum</p>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum
-                                                    sapiente aliquam ut neque voluptatibus inventore odit nesciunt.
-                                                    Nobis quas saepe repellat repudiandae qui sint? Delectus dignissimos
-                                                    maiores fuga doloremque magni, ratione provident exercitationem
-                                                    aliquam tempore velit facere autem magnam, architecto inventore
-                                                    recusandae dolorum, illo sequi officiis dolore! Unde enim,
-                                                    exercitationem. Lorem ipsum</p>
-                                                <ul>
-                                                    <li>Consectetur adipisicing elit. Voluptatum sapiente aliquam ut
-                                                        neque voluptatibus inventore odit nesciunt. Nobis quas saepe
-                                                        repellat</li>
-                                                    <li>Delectus dignissimos maiores fuga doloremque magni, ratione
-                                                        provident exercitationem aliquam tempore velit facere autem
-                                                        magnam</li>
-                                                    <li>velit facere autem magnam, architecto inventore recusandae
-                                                        dolorum, illo sequi officiis dolore! Unde enim</li>
-                                                    <li>Repudiandae qui sint? Delectus dignissimos maiores fuga
-                                                        doloremque magni, ratione provident exercitationem aliquam
-                                                        tempore velit facere autem</li>
-                                                    <li>Ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum
-                                                        sapiente aliquam ut neque voluptatibus inventore odit nesciunt.
-                                                        Nobis quas saepe repella</li>
-                                                </ul>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum
-                                                    sapiente aliquam ut neque voluptatibus inventore odit nesciunt.
-                                                    Nobis quas saepe repellat repudiandae qui sint? Delectus dignissimos
-                                                    maiores fuga doloremque magni, ratione provident exercitationem
-                                                    aliquam tempore velit facere autem magnam, architecto inventore
-                                                    recusandae dolorum, illo sequi officiis dolore! Unde enim,
-                                                    exercitationem. Lorem ipsum</p>
-                                                <h4>Heading 5</h4>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum
-                                                    sapiente aliquam ut neque voluptatibus inventore odit nesciunt.
-                                                    Nobis quas saepe repellat repudiandae qui sint? Delectus dignissimos
-                                                    maiores fuga doloremque magni, ratione provident exercitationem
-                                                    aliquam tempore velit facere autem magnam, architecto inventore
-                                                    recusandae dolorum, illo sequi officiis dolore! Unde enim,
-                                                    exercitationem. Lorem ipsum</p>
+                                                {!! $product->long_description !!}
+
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-xl-4 col-md-4">
-                                                <div class="description_single">
-                                                    <h6><span>1</span> Free Shipping & Return</h6>
-                                                    <p>We offer free shipping for products on orders above 50$ and
-                                                        offer
-                                                        free delivery for all orders in US.</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4 col-md-4">
-                                                <div class="description_single">
-                                                    <h6><span>2</span> Free and Easy Returns</h6>
-                                                    <p>We guarantee our products and you could get back all of your
-                                                        money anytime you want in 30 days.</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4 col-md-4">
-                                                <div class="description_single">
-                                                    <h6><span>3</span> Special Financing </h6>
-                                                    <p>Get 20%-50% off items over 50$ for a month or over 250$ for a
-                                                        year with our special credit card.</p>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="pills-profile22" role="tabpanel"
-                                    aria-labelledby="pills-profile-tab7">
-                                    <div class="row">
-                                        <div class="col-xl-6 col-lg-6 mb-4 mb-lg-0">
-                                            <div class="wsus__pro_det_info">
-                                                <h4>Additional Information</h4>
-                                                <p><span>Fabric</span> 100% Cotton</p>
-                                                <p><span>Materials</span> Yearn</p>
-                                                <p><span>Packaging</span> 1 pice poly</p>
-                                                <p><span>Cleaning</span> Washable</p>
-                                                <p><span>Cash on Delivery</span> yes</p>
-                                                <p><span>Payment Method</span> Cash / Credit Card</p>
-                                                <p><span>Other Paymen Method</span> Wire Transfer</p>
-                                                <p><span>Order Tracking</span> Yes </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-6 col-lg-6">
-                                            <div class="wsus__pro_det_info">
-                                                <h4>Additional Information</h4>
-                                                <p><span>Fabric</span> 100% Cotton</p>
-                                                <p><span>Materials</span> Yearn</p>
-                                                <p><span>Packaging</span> 1 pice poly</p>
-                                                <p><span>Cleaning</span> Washable</p>
-                                                <p><span>Cash on Delivery</span> yes</p>
-                                                <p><span>Payment Method</span> Cash / Credit Card</p>
-                                                <p><span>Other Paymen Method</span> Wire Transfer</p>
-                                                <p><span>Order Tracking</span> Yes </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="tab-pane fade" id="pills-contact" role="tabpanel"
                                     aria-labelledby="pills-contact-tab">
                                     <div class="wsus__pro_det_vendor">
                                         <div class="row">
                                             <div class="col-xl-6 col-xxl-5 col-md-6">
                                                 <div class="wsus__vebdor_img">
-                                                    <img src="images/slider_1.jpg" alt="vensor"
+                                                    <img src="{{ asset($product->getVendorId->banner) }}" alt="vensor"
                                                         class="img-fluid w-100">
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-xxl-7 col-md-6 mt-4 mt-md-0">
                                                 <div class="wsus__pro_det_vendor_text">
-                                                    <h4>jhon deo</h4>
+                                                    <h4>{{ $product->getVendorId->user->name }} </h4>
                                                     <p class="rating">
                                                         <i class="fas fa-star"></i>
                                                         <i class="fas fa-star"></i>
@@ -506,40 +389,18 @@
                                                         <i class="fas fa-star"></i>
                                                         <span>(41 review)</span>
                                                     </p>
-                                                    <p><span>Store Name:</span> OAIO Store</p>
-                                                    <p><span>Address:</span> Steven Street, El Carjon, CA 92020, United
-                                                        States (US)</p>
-                                                    <p><span>Phone:</span> 1234567890</p>
-                                                    <p><span>mail:</span> example@gmail.com</p>
+                                                    <p><span>Store Name:</span>{{ $product->getVendorId->shop_name }}</p>
+                                                    <p><span>Address:</span>{{ $product->getVendorId->address }}</p>
+                                                    <p><span>Phone:</span> {{ $product->getVendorId->phone }}</p>
+                                                    <p><span>mail:</span>{{ $product->getVendorId->email }}</p>
                                                     <a href="vendor_details.html" class="see_btn">visit store</a>
                                                 </div>
                                             </div>
                                             <div class="col-xl-12">
                                                 <div class="wsus__vendor_details">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                                        Venenatis tellus in metus vulputate eu scelerisque felis. Vel
-                                                        pretium lectus quam id leo in vitae turpis massa. Nunc id cursus
-                                                        metus aliquam. Libero id faucibus nisl tincidunt eget. Aliquam
-                                                        id
-                                                        diam maecenas ultricies mi eget mauris. Volutpat ac tincidunt
-                                                        vitae
-                                                        semper quis lectus. Vestibulum mattis ullamcorper velit sed. A
-                                                        arcu
-                                                        cursus vitae congue mauris.
-                                                        <span>A arcu cursus vitae congue mauris. Sagittis id consectetur
-                                                            purus ut. Tellus rutrum tellus pellentesque eu tincidunt
-                                                            tortor
-                                                            aliquam nulla. Diam in arcu cursus euismod quis. Eget sit
-                                                            amet
-                                                            tellus cras adipiscing enim eu. In fermentum et sollicitudin
-                                                            ac
-                                                            orci phasellus. A condimentum vitae sapien pellentesque
-                                                            habitant
-                                                            morbi tristique senectus et. In dictum non consectetur a
-                                                            erat.
-                                                            Nunc scelerisque viverra mauris in aliquam sem fringilla.
-                                                        </span>
+                                                    {!! $product->getVendorId->description !!}
+
+                                                    </span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -714,174 +575,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="pills-contact23" role="tabpanel"
-                                    aria-labelledby="pills-contact-tab23">
-                                    <div class="wsus__pro_det_comment">
-                                        <div class="row">
-                                            <div class="col-xl-7 col-lg-6">
-                                                <div class="wsus__comment_area">
-                                                    <h4>comment <span>03</span></h4>
-                                                    <div class="wsus__main_comment">
-                                                        <div class="wsus__comment_img">
-                                                            <img src="images/dashboard_user.jpg" alt="user"
-                                                                class="img-fluid w-100">
-                                                        </div>
-                                                        <div class="wsus__comment_text reply">
-                                                            <h6>Shopnil mahadi <span>09 Jul 2021</span></h6>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                                Cupiditate sint molestiae eos? Officia, fuga eaque.</p>
-                                                            <a href="#" data-bs-toggle="collapse"
-                                                                data-bs-target="#flush-collapsetwo2">reply</a>
-                                                            <div class="accordion accordion-flush"
-                                                                id="accordionFlushExample2">
-                                                                <div class="accordion-item">
-                                                                    <div id="flush-collapsetwo2"
-                                                                        class="accordion-collapse collapse"
-                                                                        aria-labelledby="flush-collapsetwo"
-                                                                        data-bs-parent="#accordionFlushExample">
-                                                                        <div class="accordion-body">
-                                                                            <form>
-                                                                                <div
-                                                                                    class="wsus__riv_edit_single text_area">
-                                                                                    <i class="far fa-edit"></i>
-                                                                                    <textarea cols="3" rows="1" placeholder="Your Text"></textarea>
-                                                                                </div>
-                                                                                <button type="submit"
-                                                                                    class="common_btn">submit</button>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="wsus__main_comment wsus__com_reply">
-                                                        <div class="wsus__comment_img">
-                                                            <img src="images/ts-3.jpg" alt="user"
-                                                                class="img-fluid w-100">
-                                                        </div>
-                                                        <div class="wsus__comment_text reply">
-                                                            <h6>Smith jhon <span>09 Jul 2021</span></h6>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                                Cupiditate sint molestiae eos? Officia, fuga eaque.</p>
-                                                            <a href="#" data-bs-toggle="collapse"
-                                                                data-bs-target="#flush-collapsetwo">reply</a>
-                                                            <div class="accordion accordion-flush"
-                                                                id="accordionFlushExample">
-                                                                <div class="accordion-item">
-                                                                    <div id="flush-collapsetwo"
-                                                                        class="accordion-collapse collapse"
-                                                                        aria-labelledby="flush-collapsetwo"
-                                                                        data-bs-parent="#accordionFlushExample">
-                                                                        <div class="accordion-body">
-                                                                            <form>
-                                                                                <div
-                                                                                    class="wsus__riv_edit_single text_area">
-                                                                                    <i class="far fa-edit"></i>
-                                                                                    <textarea cols="3" rows="1" placeholder="Your Text"></textarea>
-                                                                                </div>
-                                                                                <button type="submit"
-                                                                                    class="common_btn">submit</button>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="wsus__main_comment">
-                                                        <div class="wsus__comment_img">
-                                                            <img src="images/team_1.jpg" alt="user"
-                                                                class="img-fluid w-100">
-                                                        </div>
-                                                        <div class="wsus__comment_text reply">
-                                                            <h6>Smith jhon <span>09 Jul 2021</span></h6>
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                                Cupiditate sint molestiae eos? Officia, fuga eaque.</p>
-                                                            <a href="#" data-bs-toggle="collapse"
-                                                                data-bs-target="#flush-collapsetwo3">reply</a>
-                                                            <div class="accordion accordion-flush"
-                                                                id="accordionFlushExample3">
-                                                                <div class="accordion-item">
-                                                                    <div id="flush-collapsetwo3"
-                                                                        class="accordion-collapse collapse"
-                                                                        aria-labelledby="flush-collapsetwo"
-                                                                        data-bs-parent="#accordionFlushExample">
-                                                                        <div class="accordion-body">
-                                                                            <form>
-                                                                                <div
-                                                                                    class="wsus__riv_edit_single text_area">
-                                                                                    <i class="far fa-edit"></i>
-                                                                                    <textarea cols="3" rows="1" placeholder="Your Text"></textarea>
-                                                                                </div>
-                                                                                <button type="submit"
-                                                                                    class="common_btn">submit</button>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="pagination">
-                                                        <nav aria-label="Page navigation example">
-                                                            <ul class="pagination">
-                                                                <li class="page-item">
-                                                                    <a class="page-link" href="#"
-                                                                        aria-label="Previous">
-                                                                        <i class="fas fa-chevron-left"></i>
-                                                                    </a>
-                                                                </li>
-                                                                <li class="page-item"><a class="page-link page_active"
-                                                                        href="#">1</a></li>
-                                                                <li class="page-item"><a class="page-link"
-                                                                        href="#">2</a>
-                                                                </li>
-                                                                <li class="page-item"><a class="page-link"
-                                                                        href="#">3</a>
-                                                                </li>
-                                                                <li class="page-item"><a class="page-link"
-                                                                        href="#">4</a>
-                                                                </li>
-                                                                <li class="page-item">
-                                                                    <a class="page-link" href="#"
-                                                                        aria-label="Next">
-                                                                        <i class="fas fa-chevron-right"></i>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </nav>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-5 col-lg-6 mt-4 mt-lg-0">
-                                                <div class="wsus__post_comment" id="sticky_sidebar2">
-                                                    <h4>post a comment</h4>
-                                                    <form action="#">
-                                                        <div class="row">
-                                                            <div class="col-xl-6">
-                                                                <div class="wsus__single_com">
-                                                                    <input type="text" placeholder="Name">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-6">
-                                                                <div class="wsus__single_com">
-                                                                    <input type="email" placeholder="Email">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-12">
-                                                                <div class="wsus__single_com">
-                                                                    <textarea cols="3" rows="3" placeholder="Your Comment"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <button class="common_btn" type="submit">post comment</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="tab-pane fade" id="pills-contact239" role="tabpanel"
                                     aria-labelledby="pills-contact-tab239">
                                     <div class="row">

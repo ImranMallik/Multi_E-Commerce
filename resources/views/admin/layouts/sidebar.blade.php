@@ -108,7 +108,8 @@
             </li>
 
 
-            <li class="dropdown {{ setActive(['admin.vendor-profile.*', 'admin.flash-sale.*']) }}">
+            <li
+                class="dropdown {{ setActive(['admin.vendor-profile.*', 'admin.flash-sale.*', 'admin.vendor-profile.*', 'admin.coupons.*']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                     <i class="fas fa-shopping-cart"></i>
                     <span>E-commerce</span>
@@ -122,6 +123,15 @@
                     </li>
                 </ul>
                 <ul class="dropdown-menu">
+                    <li class="{{ setActive(['admin.coupons.*']) }}">
+                        <a class="nav-link" href="{{ route('admin.coupons.index') }}">
+                            <i class="fas fa-tags"></i>
+                            Coupons
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="dropdown-menu">
                     <li class="{{ setActive(['admin.flash-sale.*']) }}">
                         <a class="nav-link" href="{{ route('admin.flash-sale.index') }}">
                             <i class="fas fa-bolt"></i>
@@ -131,6 +141,14 @@
                 </ul>
 
             </li>
+
+            <li class="{{ request()->routeIs('admin.settings.index') ? 'active' : '' }}">
+                <a href="{{ route('admin.settings.index') }}" class="nav-link">
+                    <i class="fas fa-cog ml-1"></i>
+                    <span>Setting</span>
+                </a>
+            </li>
+
 
         </ul>
     </aside>

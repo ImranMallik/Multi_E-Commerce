@@ -2,22 +2,18 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Product Variant Item</h1>
+            <h1>Slider</h1>
 
-        </div>
-        <div class="mb-3">
-            <a href="{{ route('admin.products-variant.index', ['product' => $product->id]) }}"
-                class="btn btn-primary">Back</a>
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Variant:{{ $variant->name }}</h4>
+                            <h4>All Slider</h4>
                             <div class="card-header-action">
-                                <a href="{{ route('admin.products-variants-items.create', ['productId' => $product->id, 'variantId' => $variant->id]) }}"
-                                    class="btn btn-primary"><i class="fas fa-plus"></i> Create New</a>
+                                <a href="{{ route('admin.coupons.create') }}" class="btn btn-primary"><i
+                                        class="fas fa-plus"></i> Create New</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -34,35 +30,33 @@
 @endsection
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
-
     <script>
         $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
             $('body').on('click', '.change-status', function() {
+                //    alert('Hello');
                 let isChecked = $(this).is(':checked');
+                // console.log(isChecked);
                 let id = $(this).data('id');
-                // alert('hi');
+                // console.log(id);
+
                 $.ajax({
-                    url: "{{ route('admin.product-variant-item.change-status') }}",
+                    url: "{{ route('admin.coupons.status-change') }}",
                     method: 'PUT',
                     data: {
+                        _token: '{{ csrf_token() }}',
                         status: isChecked,
                         id: id
                     },
                     success: function(data) {
-                        // console.log(data);
                         toastr.success(data.message);
                     },
                     error: function(xhr, status, error) {
                         console.log(error);
                     }
-                });
-            });
-        });
+
+                })
+
+            })
+        })
     </script>
 @endpush

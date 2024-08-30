@@ -47,3 +47,10 @@ function productType(string $type): string
       return '';
   }
 }
+
+// name text length set 
+
+function limitText($text, $limit = 15)
+{
+  return \Str::limit($text, $limit);
+}
