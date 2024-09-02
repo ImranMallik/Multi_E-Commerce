@@ -19,6 +19,8 @@ use App\Http\Controllers\Backend\ProductVariantItemController;
 use App\Http\Controllers\Backend\SellerPendingProductController;
 use App\Http\Controllers\Backend\SellerProductController;
 use App\Http\Controllers\Backend\SettingController;
+use App\Http\Controllers\Backend\ShippingRouleController;
+use App\Http\Controllers\Backend\ShippingRuleController;
 use App\Models\ChildCategory;
 
 Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
@@ -96,3 +98,7 @@ Route::put('general-settings-update', [SettingController::class, 'update'])->nam
 // Coupon Route
 Route::put('coupons/change-status', [CouponController::class, 'changeStatus'])->name('coupons.status-change');
 Route::resource('coupons', CouponController::class);
+
+// Shipping Rule 
+Route::put('shipping-rules-status-change', [ShippingRuleController::class, 'changeStatus'])->name('shipping-rules-status-change');
+Route::resource('shipping-rules', ShippingRuleController::class);

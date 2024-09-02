@@ -65,7 +65,7 @@ class VendorProductController extends Controller
         $Product->thumb_image = $iamgePath;
         $Product->name = $request->name;
         $Product->slug = Str::slug($request->name);
-        $Product->vendor_id = Auth::user()->vendor->user_id;
+        $Product->vendor_id = Auth::user()->vendor->id;
         $Product->category_id = $request->category;
         $Product->sub_category_id = $request->sub_category;
         $Product->child_category_id = $request->child_category;
