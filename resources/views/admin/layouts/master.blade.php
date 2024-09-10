@@ -6,7 +6,9 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>E-commerce Dashboard</title>
+    <title>
+        @yield('title')
+    </title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -117,6 +119,7 @@
         $(document).ready(function() {
             $('body').on('click', '.delet-item', function(event) {
                 event.preventDefault();
+                // alert();
 
                 let deleteUrl = $(this).attr('href');
 

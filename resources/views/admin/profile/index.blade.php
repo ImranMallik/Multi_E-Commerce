@@ -1,4 +1,7 @@
 @extends('admin.layouts.master')
+@section('title')
+    {{ $settings->site_name }} || Profile
+@endsection
 @section('content')
     <section class="section">
         <div class="section-header">

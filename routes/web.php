@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\FrontendProductDetails;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserProfileController;
 use App\Http\Controllers\ProfileController;
@@ -43,6 +45,8 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     Route::get('profile', [UserProfileController::class, 'index'])->name('profile');
     Route::put('profile', [UserProfileController::class, 'updateProfile'])->name('profile.update');
     Route::post('profile', [UserProfileController::class, 'updatePassword'])->name('update.password');
+    // User Address
+    Route::resource('address', UserAddressController::class);
 });
 
 // Custom Flash Sale Controller
@@ -50,3 +54,6 @@ Route::get('flash-sale', [FlashSaleController::class, 'index'])->name('flash-sal
 
 // Products Details
 Route::get('products-details/{slug}', [FrontendProductDetails::class, 'showProducts'])->name('products-details');
+
+// Cart Route
+Route::post('add-t-cart', [CartController::class, 'addToCart'])->name('add-to-cart');

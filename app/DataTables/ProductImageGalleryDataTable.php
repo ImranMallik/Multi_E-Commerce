@@ -40,7 +40,7 @@ class ProductImageGalleryDataTable extends DataTable
      */
     public function query(ProductImageGallery $model): QueryBuilder
     {
-        return $model->where('product_id', request()->product)->newQuery();
+        return $model->where('product_id', request()->productId)->newQuery();
     }
 
     /**
@@ -53,7 +53,7 @@ class ProductImageGalleryDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
-            ->orderBy(1)
+            ->orderBy(0)
             ->selectStyleSingle()
             ->buttons([
                 Button::make('excel'),

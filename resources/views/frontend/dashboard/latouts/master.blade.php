@@ -3,10 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <title>One Shop || e-Commerce HTML Template</title>
+    <title>
+        @yield('title')
+    </title>
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}">
@@ -100,10 +103,14 @@
     <!--classycountdown js-->
     <script src="{{ asset('frontend/assets/js/jquery.classycountdown.js') }}"></script>
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    {{-- Sweet Alert --}}
+
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js
-                    "></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         @if ($errors->any())
             @foreach ($errors->all() as $error)
@@ -111,6 +118,67 @@
             @endforeach
         @endif
     </script>
+
+    <script>
+        $(document).ready(function() {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+
+            $('body').on('click', '.delet-item', function(event) {
+                // alert(event);
+                event.preventDefault();
+
+                let deleteUrl = $(this).attr('href');
+                // alert(deleteUrl);
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Ajax delete
+                        $.ajax({
+                            type: 'DELETE',
+                            url: deleteUrl,
+
+                            success: function(data) {
+                                if (data.status == 'success') {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        data.message,
+                                        'success'
+                                    )
+                                    window.location.reload();
+                                } else if (data.status == 'error') {
+                                    Swal.fire(
+                                        "Can't Delete",
+                                        data.message,
+                                        'error'
+                                    )
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.log(error);
+                            }
+                        });
+
+                    }
+                });
+
+            });
+        })
+    </script>
+
 </body>
 
 </html>

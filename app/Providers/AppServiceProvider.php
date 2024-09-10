@@ -27,10 +27,9 @@ class AppServiceProvider extends ServiceProvider
         // Set Time Zone Dynamically
         $generalSetting = GeneralSetting::first();
         Config::set('app.timezone', $generalSetting->time_zone);
-
-        // Dynamically Currency Set
+        //General Settings
         view()->composer('*', function ($view) use ($generalSetting) {
-            $view->with('currency', $generalSetting);
+            $view->with('settings', $generalSetting);
         });
     }
 }
