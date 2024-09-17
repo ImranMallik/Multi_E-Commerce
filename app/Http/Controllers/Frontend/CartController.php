@@ -10,6 +10,8 @@ use Cart;
 
 class CartController extends Controller
 {
+
+    // Add To Cart Logic
     public function addToCart(Request $request)
     {
         // dd($request->all());
@@ -57,5 +59,31 @@ class CartController extends Controller
         return response(['status' => 'success', 'message' => 'Added to Cart Successfully!']);
 
         // dd($cartData);
+    }
+
+
+    // Cart Details Item
+    public function cartDetails()
+    {
+        $cartItems = Cart::content();
+        return view('frontend.pages.cart_details', compact('cartItems'));
+    }
+
+
+    //Update Cart Item Quantity
+    public function updateQuantity(Request $request)
+    {
+        // dd($request->all());
+        Cart::update($request->rowId, $request->quantity);
+        $productTotal = $this->updateTotalPrice($request->rowId);
+        return response(['status' => 'success', 'message' => 'Product Quantity Updated!', 'productTotal' => $productTotal]);
+    }
+
+    //When Product Quantity Update Then Total Price Update
+    public function updateTotalPrice($rowId)
+    {
+        $product =  Cart::get($rowId);
+        $total = ($product->price + $product->options->variants_total) * $product->qty;
+        return $total;
     }
 }

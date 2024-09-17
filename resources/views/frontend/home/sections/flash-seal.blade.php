@@ -86,31 +86,39 @@
                     <div class="row">
                         <div class="col-xl-6 col-12 col-sm-10 col-md-8 col-lg-6 m-auto display">
                             <div class="wsus__quick_view_img">
-                                <a class="venobox wsus__pro_det_video" data-autoplay="true" data-vbtype="video"
-                                    href="https://youtu.be/7m16dFI1AF8">
-                                    <i class="fas fa-play"></i>
-                                </a>
+                                @if ($product->video_link)
+                                    <a class="venobox wsus__pro_det_video" data-autoplay="true" data-vbtype="video"
+                                        href="{{ $product->video_link }}">
+                                        <i class="fas fa-play"></i>
+                                @endif
                                 <div class="row modal_slider">
                                     <div class="col-xl-12">
                                         <div class="modal_slider_img">
-                                            <img src="images/zoom1.jpg" alt="product" class="img-fluid w-100">
+                                            <img src="{{ asset($product->thumb_image) }}" alt="product"
+                                                class="img-fluid w-100">
                                         </div>
                                     </div>
-                                    <div class="col-xl-12">
-                                        <div class="modal_slider_img">
-                                            <img src="images/zoom2.jpg" alt="product" class="img-fluid w-100">
+
+                                    @if (count($product->multiplesImages) === 0)
+                                        {
+                                        <div class="col-xl-12">
+                                            <div class="modal_slider_img">
+                                                <img src="{{ asset($product->thumb_image) }}" alt="product"
+                                                    class="img-fluid w-100">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xl-12">
-                                        <div class="modal_slider_img">
-                                            <img src="images/zoom3.jpg" alt="product" class="img-fluid w-100">
+                                        }
+                                    @endif
+
+                                    @foreach ($product->multiplesImages as $Image)
+                                        <div class="col-xl-12">
+                                            <div class="modal_slider_img">
+                                                <img src="{{ asset($Image->image) }}" alt="{{ $product->name }}"
+                                                    class="img-fluid w-100">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xl-12">
-                                        <div class="modal_slider_img">
-                                            <img src="images/zoom4.jpg" alt="product" class="img-fluid w-100">
-                                        </div>
-                                    </div>
+                                    @endforeach
+
                                 </div>
                             </div>
                         </div>

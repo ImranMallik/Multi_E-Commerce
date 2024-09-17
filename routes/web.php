@@ -57,3 +57,5 @@ Route::get('products-details/{slug}', [FrontendProductDetails::class, 'showProdu
 
 // Cart Route
 Route::post('add-t-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
+Route::get('cart-details', [CartController::class, 'cartDetails'])->name('cartDetails');
+Route::post('cart/update-quantity', [CartController::class, 'updateQuantity'])->name('cart.updateQuantity');

@@ -14,6 +14,10 @@ class FrontendProductDetails extends Controller
             ->where('slug', $slug)
             ->where('status', 1)
             ->first();
+
+        // echo "<pre> ";
+        // print_r($product);
+        // die;
         return view('frontend.pages.products_details', compact('product'));
     }
 }

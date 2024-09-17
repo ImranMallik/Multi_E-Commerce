@@ -692,8 +692,8 @@
             </div>
         </div>
     </section>
-    {{-- //Related Products// --}}
-    {{-- <section id="wsus__flash_sell">
+    {{-- Related Products --}}
+    <section id="wsus__flash_sell">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
@@ -854,7 +854,7 @@
 
             </div>
         </div>
-    </section> --}}
+    </section>
 @endsection
 
 @push('scripts')
