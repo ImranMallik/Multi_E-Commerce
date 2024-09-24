@@ -54,3 +54,14 @@ function limitText($text, $limit = 15)
 {
   return \Str::limit($text, $limit);
 }
+
+// Gat Total cart Amount
+
+function getCartTotal()
+{
+  $total = 0;
+  foreach (\Cart::content() as $product) {
+    $total += ($product->price + $product->options->variants_total) * $product->qty;
+  }
+  return $total;
+}

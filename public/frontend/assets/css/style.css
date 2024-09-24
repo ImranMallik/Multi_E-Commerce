@@ -9579,7 +9579,7 @@ a:not([href]):not([class]):hover {
   padding-left: 5px;
   text-align: center;
 }
-.wsus__cart_list.wsus__pro_name {
+.wsus__cart_list .wsus__pro_name {
   width: 285px;
 }
 

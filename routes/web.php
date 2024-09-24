@@ -59,3 +59,9 @@ Route::get('products-details/{slug}', [FrontendProductDetails::class, 'showProdu
 Route::post('add-t-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
 Route::get('cart-details', [CartController::class, 'cartDetails'])->name('cartDetails');
 Route::post('cart/update-quantity', [CartController::class, 'updateQuantity'])->name('cart.updateQuantity');
+Route::get('cart-clear-all', [CartController::class, 'clearAllCartItem'])->name('cart.clearAllCartItem');
+Route::get('cart-clear-per-item/{rowId}', [CartController::class, 'clearPerItem'])->name('cart.clearPerItem');
+Route::get('cart-count', [CartController::class, 'getCount'])->name('cart.count');
+Route::get('cart-sidebar-products', [CartController::class, 'getSidebarProducts'])->name('cart.sidebarProducts');
+Route::post('remove-sidebar-cart-products', [CartController::class, 'removeCartSidebarProducts'])->name('remove-cart-sidebar-products');
+Route::get('cart/sidebar-products-total', [CartController::class, 'cartTotal'])->name('total-cart-sidebar-products');

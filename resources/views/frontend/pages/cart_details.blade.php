@@ -51,7 +51,7 @@
 
 
                                         <th class="wsus__pro_icon">
-                                            <a href="#" class="common_btn">clear cart</a>
+                                            <a href="#" class="common_btn clear_cart">clear cart</a>
                                         </th>
                                     </tr>
                                     @foreach ($cartItems as $item)
@@ -92,10 +92,19 @@
 
 
                                             <td class="wsus__pro_icon">
-                                                <a href="#"><i class="far fa-times"></i></a>
+                                                <a href="{{ route('cart.clearPerItem', $item->rowId) }}"><i
+                                                        class="far fa-times"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
+
+                                    @if (count($cartItems) === 0)
+                                        <tr class="d-flex">
+                                            <td class="wsus_pro_icon" rowspan="2" style="width:100%">
+                                                Cart is Empty!📪
+                                            </td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -183,6 +192,8 @@
                                 .productTotal;
                             $(productId).text(totalAmount);
                             toastr.success(data.message);
+                        } else if (data.status === 'error') {
+                            toastr.error(data.message);
                         }
                     },
                     error: function(error) {
@@ -212,6 +223,8 @@
                                     .productTotal;
                                 $(productId).text(totalAmount);
                                 toastr.success(data.message);
+                            } else if (data.status === 'error') {
+                                toastr.error(data.message);
                             }
                         },
                         error: function(error) {
@@ -220,6 +233,49 @@
                     })
                 }
             });
+
+            // clear Cart All Items 
+            $('.clear_cart').on('click', function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "This action will clear all cart items!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, clear it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            type: 'get',
+                            url: "{{ route('cart.clearAllCartItem') }}",
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+
+                            success: function(data) {
+                                if (data.status === 'success') {
+                                    toastr.success(data.message);
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 3000);
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.log(error);
+                            }
+
+                        });
+
+                    }
+                });
+            })
 
         });
     </script>

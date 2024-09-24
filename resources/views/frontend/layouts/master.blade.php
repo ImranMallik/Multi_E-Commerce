@@ -133,10 +133,11 @@
     <!--classycountdown js-->
     <script src="{{ asset('frontend/assets/js/jquery.classycountdown.js') }}"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js
-                                            "></script>
+                                                            "></script>
 
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         @if ($errors->any())
             @foreach ($errors->all() as $error)
@@ -144,6 +145,7 @@
             @endforeach
         @endif
     </script>
+    @include('frontend.layouts.script')
     @stack('scripts')
 </body>
 
