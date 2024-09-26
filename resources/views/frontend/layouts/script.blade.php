@@ -124,12 +124,14 @@
                 method: 'GET',
                 url: "{{ route('total-cart-sidebar-products') }}",
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     $('#mini_cart_subtotal').text("{{ $settings->currency_icon }}" + data)
                 },
                 error: function(data) {}
             });
         }
+
+
 
     });
 </script>

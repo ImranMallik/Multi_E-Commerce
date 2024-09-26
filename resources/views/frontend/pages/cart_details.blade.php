@@ -113,18 +113,22 @@
                 <div class="col-xl-3">
                     <div class="wsus__cart_list_footer_button" id="sticky_sidebar">
                         <h6>total cart</h6>
-                        <p>subtotal: <span>$124.00</span></p>
-                        <p>delivery: <span>$00.00</span></p>
-                        <p>discount: <span>$10.00</span></p>
-                        <p class="total"><span>total:</span> <span>$134.00</span></p>
+                        <p>subtotal: <span id="sub_total">{{ $settings->currency_icon }}{{ getCartTotal() }}</span></p>
+                        {{-- <p>delivery: <span>{{ $settings->currency_icon }}</span></p> --}}
+                        <p>coupon(-): <span id="discount">{{ $settings->currency_icon }}{{ getCartDiscount() }}</span>
+                        </p>
+                        <p class="total"><span>total:</span> <span
+                                id="cart_total">{{ $settings->currency_icon }}{{ getMainCartTotal() }}</span>
+                        </p>
 
-                        <form>
-                            <input type="text" placeholder="Coupon Code">
+                        <form id="coupon_form">
+                            <input type="text" placeholder="Coupon Code" name="coupon"
+                                value="{{ session()->has('coupon') ? session()->get('coupon')['coupon_code'] : '' }}">
                             <button type="submit" class="common_btn">apply</button>
                         </form>
                         <a class="common_btn mt-4 w-100 text-center" href="check_out.html">checkout</a>
-                        <a class="common_btn mt-1 w-100 text-center" href="product_grid_view.html"><i
-                                class="fab fa-shopify"></i> go shop</a>
+                        <a class="common_btn mt-1 w-100 text-center" href="{{ route('home') }}"><i
+                                class="fab fa-shopify"></i> keep Shopping</a>
                     </div>
                 </div>
             </div>
@@ -172,6 +176,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
             // Increment Ajax counter
             $('.product-increment').on('click', function() {
                 let input = $(this).siblings('.product-qty');
@@ -191,6 +196,9 @@
                             let totalAmount = "{{ $settings->currency_icon }}" + data
                                 .productTotal;
                             $(productId).text(totalAmount);
+                            renderCartSubtotal();
+                            calculateCouponDiscountAmount();
+
                             toastr.success(data.message);
                         } else if (data.status === 'error') {
                             toastr.error(data.message);
@@ -222,13 +230,15 @@
                                 let totalAmount = "{{ $settings->currency_icon }}" + data
                                     .productTotal;
                                 $(productId).text(totalAmount);
+                                renderCartSubtotal();
+                                calculateCouponDiscountAmount();
                                 toastr.success(data.message);
                             } else if (data.status === 'error') {
                                 toastr.error(data.message);
                             }
                         },
                         error: function(error) {
-                            // console.log(error);
+                            console.log(error);
                         }
                     })
                 }
@@ -276,6 +286,68 @@
                     }
                 });
             })
+
+            // Ptice increment or decrement in cart details page
+            function renderCartSubtotal() {
+                $.ajax({
+                    method: 'GET',
+                    url: "{{ route('total-cart-sidebar-products') }}",
+                    success: function(data) {
+                        // return data;
+                        console.log(data);
+                        $('#sub_total').text("{{ $settings->currency_icon }}" + data);
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+            // Apply Coupon
+
+            $('#coupon_form').on('submit', function(e) {
+                e.preventDefault();
+                let couponCode = $(this).find('input[name="coupon"]').val();
+                // alert(couponCode);
+                $.ajax({
+                    url: "{{ route('apply-coupon') }}",
+                    method: 'GET',
+                    data: {
+                        couponCode: couponCode
+                    },
+                    success: function(data) {
+                        if (data.status === 'error') {
+                            toastr.error(data.message);
+                        } else if (data.status === 'success') {
+                            calculateCouponDiscountAmount();
+                            toastr.success(data.message);
+
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                })
+            })
+
+            //Calculate Coupon Discount Amount
+            function calculateCouponDiscountAmount() {
+                $.ajax({
+                    url: "{{ route('calculate-coupon-discount') }}",
+                    method: 'GET',
+                    success: function(data) {
+                        // console.log(data);
+                        if (data.status === 'success') {
+                            $('#discount').text('{{ $settings->currency_icon }}' + data.discount);
+                            $('#cart_total').text('{{ $settings->currency_icon }}' + data.cart_total);
+
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                })
+            }
 
         });
     </script>

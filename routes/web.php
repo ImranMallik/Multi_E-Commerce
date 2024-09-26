@@ -65,3 +65,8 @@ Route::get('cart-count', [CartController::class, 'getCount'])->name('cart.count'
 Route::get('cart-sidebar-products', [CartController::class, 'getSidebarProducts'])->name('cart.sidebarProducts');
 Route::post('remove-sidebar-cart-products', [CartController::class, 'removeCartSidebarProducts'])->name('remove-cart-sidebar-products');
 Route::get('cart/sidebar-products-total', [CartController::class, 'cartTotal'])->name('total-cart-sidebar-products');
+
+// Coupon Code
+Route::get('apply-Coupon', [CartController::class, 'applyCoupon'])->name('apply-coupon');
+//Calculate Coupon Discount
+Route::get('calculate-coupon-discount', [CartController::class, 'calculateCouponDiscount'])->name('calculate-coupon-discount');

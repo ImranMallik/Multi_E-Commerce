@@ -32,7 +32,7 @@ class CouponDataTable extends DataTable
                 return $editBtn . $deleteBtn;
             })
             ->addColumn('discount', function ($query) {
-                if ($query->discount_value == 'amount') {
+                if ($query->discount_type == 'amount') {
                     return GeneralSetting::first()->currency_icon . $query->discount_value;
                 } else {
                     return $query->discount_value . ' %';

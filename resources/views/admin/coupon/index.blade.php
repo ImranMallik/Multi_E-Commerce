@@ -2,7 +2,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Slider</h1>
+            <h1>Coupon</h1>
 
         </div>
         <div class="section-body">
@@ -10,7 +10,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>All Slider</h4>
+                            <h4>All Coupon</h4>
                             <div class="card-header-action">
                                 <a href="{{ route('admin.coupons.create') }}" class="btn btn-primary"><i
                                         class="fas fa-plus"></i> Create New</a>

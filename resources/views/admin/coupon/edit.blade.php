@@ -66,7 +66,7 @@
                                                 <option {{ $editData->discount_type == 'percent' ? 'selected' : '' }}
                                                     value="percent">Percentage (%)</option>
                                                 <option {{ $editData->discount_type == 'amount' ? 'selected' : '' }}
-                                                    value="amount">Amount ({{ $currency->currency_icon }})</option>
+                                                    value="amount">Amount ({{ $settings->currency_icon }})</option>
                                             </select>
                                         </div>
                                     </div>

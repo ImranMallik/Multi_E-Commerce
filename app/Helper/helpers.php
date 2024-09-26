@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Session;
+
 function setActive(array $route)
 {
   if (is_array($route)) {
@@ -64,4 +66,38 @@ function getCartTotal()
     $total += ($product->price + $product->options->variants_total) * $product->qty;
   }
   return $total;
+}
+
+
+// get main cart total
+function getMainCartTotal()
+{
+  if (Session::get('coupon')) {
+    $coupon_data = Session::get('coupon');
+    if ($coupon_data['discount_type'] === 'amount') {
+      $total = getCartTotal() - $coupon_data['discount'];
+      return $total;
+    } elseif ($coupon_data['discount_type'] === 'percent') {
+      $total = getCartTotal() - (getCartTotal() * $coupon_data['discount'] / 100);
+      return $total;
+    }
+  } else {
+    return getCartTotal();
+  }
+}
+
+// Calculate Discount Amount
+function getCartDiscount()
+{
+  if (Session::get('coupon')) {
+    $coupon_data = Session::get('coupon');
+    if ($coupon_data['discount_type'] === 'amount') {
+      return $coupon_data['discount'];
+    } elseif ($coupon_data['discount_type'] === 'percent') {
+      $discount = getCartTotal() - (getCartTotal() * $coupon_data['discount'] / 100);
+      return $discount;
+    }
+  } else {
+    return 0;
+  }
 }
