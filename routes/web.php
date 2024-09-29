@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\CheckOutController;
+use App\Http\Controllers\Backend\PaymentController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\FrontendProductDetails;
@@ -47,6 +49,12 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     Route::post('profile', [UserProfileController::class, 'updatePassword'])->name('update.password');
     // User Address
     Route::resource('address', UserAddressController::class);
+    Route::get('checkout', [CheckOutController::class, 'index'])->name('checkout.index');
+    Route::post('checkout/address-create', [CheckOutController::class, 'addressCreate'])->name('checkout.address-create');
+    // place order
+    Route::post('place-order', [CheckOutController::class, 'placeOrder'])->name('checkout.place-order');
+    // Payment Method
+    Route::get('payment', [PaymentController::class, 'index'])->name('payment');
 });
 
 // Custom Flash Sale Controller

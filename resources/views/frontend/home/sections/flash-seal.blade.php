@@ -21,8 +21,8 @@
                     <div class="wsus__product_item">
                         <span class="wsus__new">{{ productType($product->product_type) }}</span>
                         @if (hasDiscounts($product))
-                            <span
-                                class="wsus__minus">-{{ calculateDiscountPercent($product->price, $product->offer_price) }}%</span>
+                            <span class="wsus__minus">
+                                -{{ calculateDiscountPercent($product->price, $product->offer_price) }}%</span>
                         @endif
                         <a class="wsus__pro_link" href="{{ route('products-details', $product->slug) }}">
                             <img src="{{ asset($product->thumb_image) }}" alt="product"

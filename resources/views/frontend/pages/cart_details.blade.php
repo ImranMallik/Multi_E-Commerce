@@ -126,7 +126,7 @@
                                 value="{{ session()->has('coupon') ? session()->get('coupon')['coupon_code'] : '' }}">
                             <button type="submit" class="common_btn">apply</button>
                         </form>
-                        <a class="common_btn mt-4 w-100 text-center" href="check_out.html">checkout</a>
+                        <a class="common_btn mt-4 w-100 text-center" href="{{ route('user.checkout.index') }}">checkout</a>
                         <a class="common_btn mt-1 w-100 text-center" href="{{ route('home') }}"><i
                                 class="fab fa-shopify"></i> keep Shopping</a>
                     </div>

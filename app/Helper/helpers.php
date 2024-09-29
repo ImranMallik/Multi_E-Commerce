@@ -69,7 +69,7 @@ function getCartTotal()
 }
 
 
-// get main cart total
+// get main cart total or you have to pay this amount using coupon
 function getMainCartTotal()
 {
   if (Session::get('coupon')) {
@@ -86,7 +86,7 @@ function getMainCartTotal()
   }
 }
 
-// Calculate Discount Amount
+// Calculate Discount Amount using Coupon
 function getCartDiscount()
 {
   if (Session::get('coupon')) {
@@ -94,7 +94,7 @@ function getCartDiscount()
     if ($coupon_data['discount_type'] === 'amount') {
       return $coupon_data['discount'];
     } elseif ($coupon_data['discount_type'] === 'percent') {
-      $discount = getCartTotal() - (getCartTotal() * $coupon_data['discount'] / 100);
+      $discount = (getCartTotal() * $coupon_data['discount'] / 100);
       return $discount;
     }
   } else {

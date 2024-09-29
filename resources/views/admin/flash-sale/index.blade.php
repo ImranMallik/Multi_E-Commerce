@@ -64,7 +64,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="status">Show at home?</label>
-                                            <select name="show_home" id="" class="form-control select2">
+                                            <select name="show_home"class="form-control select_2">
                                                 <option>Select</option>
                                                 <option value="1">Yes</option>
                                                 <option value="0">No</option>
@@ -74,7 +74,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="status">Status</label>
-                                            <select name="status" id="" class="form-control select2">
+                                            <select name="status" id="" class="form-control select_2">
                                                 <option>Select</option>
                                                 <option value="1">Active</option>
                                                 <option value="0">Inactive</option>
