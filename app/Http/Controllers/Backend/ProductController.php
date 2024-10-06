@@ -84,7 +84,7 @@ class ProductController extends Controller
         $products->save();
 
         toastr('Created Successfully!', 'status');
-        return redirect()->route('admin.products.index');
+        return redirect()->back();
     }
 
     /**

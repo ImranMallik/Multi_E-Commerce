@@ -52,6 +52,7 @@
                     'admin.products-image-gallery.*',
                     'admin.products-variants-items.*',
                     'admin.brand.*',
+                
                     'admin.products.index',
                     'admin.seller-products',
                     'admin.seller-pending-products',
@@ -109,7 +110,7 @@
 
 
             <li
-                class="dropdown {{ setActive(['admin.vendor-profile.*', 'admin.flash-sale.*', 'admin.vendor-profile.*', 'admin.coupons.*', 'admin.shipping-rules.*']) }}">
+                class="dropdown {{ setActive(['admin.vendor-profile.*', 'admin.flash-sale.*', 'admin.vendor-profile.*', 'admin.coupons.*', 'admin.shipping-rules.*', 'admin.payment-setting.*']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                     <i class="fas fa-shopping-cart"></i>
                     <span>E-commerce</span>
@@ -147,6 +148,15 @@
                         </a>
                     </li>
                 </ul>
+                <ul class="dropdown-menu">
+                    <li class="{{ setActive(['admin.payment-setting.*']) }}">
+                        <a class="nav-link" href="{{ route('admin.payment-setting.index') }}">
+                            <i class="fas fa-money-bill-wave"></i>
+                            Payment Setting
+                        </a>
+                    </li>
+                </ul>
+
 
             </li>
 

@@ -55,6 +55,12 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     Route::post('place-order', [CheckOutController::class, 'placeOrder'])->name('checkout.place-order');
     // Payment Method
     Route::get('payment', [PaymentController::class, 'index'])->name('payment');
+    // Re-direct Payment success Page After Successful payment
+    Route::get('payment-success', [PaymentController::class, 'paymentSuccess'])->name('payment-success');
+    // Payment Paypal 
+    Route::get('payment/paypal', [PaymentController::class, 'payWithPaypal'])->name('payment.paypal');
+    Route::get('payment/success', [PaymentController::class, 'paypalSuccess'])->name('paypal.success');
+    Route::get('payment/cancel', [PaymentController::class, 'paypalCancel'])->name('paypal.cancel');
 });
 
 // Custom Flash Sale Controller

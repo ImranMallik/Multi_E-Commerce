@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Contracts\Session\Session as SessionSession;
 use Illuminate\Support\Facades\Session;
 
 function setActive(array $route)
@@ -100,4 +101,25 @@ function getCartDiscount()
   } else {
     return 0;
   }
+}
+
+
+// Get Shipping fee from shipping_method session
+
+function getShippingFee()
+{
+  if (Session::has('shipping_method')) {
+    return Session::get('shipping_method')['cost'];
+  } else {
+    return 0;
+  }
+}
+
+
+
+// Final Payble amount
+
+function getFinalPayableAmount()
+{
+  return getMainCartTotal() + getShippingFee();
 }
