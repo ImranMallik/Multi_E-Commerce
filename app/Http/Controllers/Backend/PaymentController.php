@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\GeneralSetting;
 use App\Models\Order;
+use App\Models\OrderProduct;
 use App\Models\PayPalSetting;
+use App\Models\Product;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -28,7 +31,7 @@ class PaymentController extends Controller
     }
 
     // After Payment Success Order Data Insert into DataBase
-    public function storeOrderData($paymentMethod, $paymentStatus)
+    public function storeOrderData($paymentMethod, $paymentStatus, $transactionId, $paidAmount, $paidCurrencyName)
     {
         $general_setting = GeneralSetting::first();
         $order = new Order();
@@ -46,6 +49,41 @@ class PaymentController extends Controller
         $order->coupon = json_encode(Session::get('coupon'));
         $order->order_status = 0;
         $order->save();
+
+        // Store Order Product
+        foreach (\Cart::content() as $item) {
+            $product = Product::find($item->id);
+            $orderProduct = new OrderProduct();
+            $orderProduct->order_id = $order->id;
+            $orderProduct->product_id = $product->id;
+            $orderProduct->vendor_id = $product->vendor_id;
+            $orderProduct->product_name = $product->name;
+            $orderProduct->variants = json_encode($item->options->variants);
+            $orderProduct->variant_total = $item->options->variants_total;
+            $orderProduct->unit_price = $item->price;
+            $orderProduct->quantity = $item->qty;
+            $orderProduct->save();
+        }
+
+        // store Transaction Data 
+        $transaction = new Transaction();
+        $transaction->order_id = $order->id;
+        $transaction->transaction_id = $transactionId;
+        $transaction->payment_method = $paymentMethod;
+        $transaction->amount = getFinalPayableAmount();
+        $transaction->amount_real_currency = $paidAmount;
+        $transaction->amount_real_currency_name = $paidCurrencyName;
+        $transaction->save();
+    }
+
+    // After Successfully Payment Session Clear 
+    public function clearSession()
+    {
+        \Cart::destroy();
+        Session::forget('shipping_method');
+        Session::forget('shipping_address');
+        Session::forget('cart');
+        Session::forget('coupon');
     }
 
 
@@ -123,6 +161,13 @@ class PaymentController extends Controller
         $provider->getAccessToken();
         $response = $provider->capturePaymentOrder($request->token);
         if (isset($response['status']) && $response['status'] == 'COMPLETED') {
+            $paypal_setting = PayPalSetting::first();
+            $total = getFinalPayableAmount();
+            $paidAmount = round($total * $paypal_setting->currency_rate, 2);
+
+            $this->storeOrderData('paypal', 1, $response['id'], $paidAmount, $paypal_setting->currency_name);
+            // Session Clear
+            $this->clearSession();
             return redirect()->route('user.payment-success');
         }
 
