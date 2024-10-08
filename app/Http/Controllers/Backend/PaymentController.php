@@ -8,11 +8,14 @@ use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\PayPalSetting;
 use App\Models\Product;
+use App\Models\StripeSetting;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
+use Stripe\Stripe;
+use Stripe\Charge;
 
 class PaymentController extends Controller
 {
@@ -179,5 +182,24 @@ class PaymentController extends Controller
     {
         toastr('Something went wrong Please try again later', 'error', 'Error');
         return redirect()->route('user.payment');
+    }
+
+
+    // Stripe Payment Method
+
+    public function payWithStripe(Request $request)
+    {
+        $stripeSetting = StripeSetting::first();
+        $total = getFinalPayableAmount();
+        $payableTotalAmount = round($total * $stripeSetting->currency_rate, 2);
+        Stripe::setApiKey($stripeSetting->secret_key);
+        Charge::create([
+            "amount" => $payableTotalAmount * 100,
+            "currency" => $stripeSetting->currency_name,
+            "source" => $request->stripe_token,
+            "description" => "Payment Test"
+        ]);
+
+        // dd('success');
     }
 }

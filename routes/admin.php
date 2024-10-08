@@ -23,6 +23,7 @@ use App\Http\Controllers\Backend\SellerProductController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\ShippingRouleController;
 use App\Http\Controllers\Backend\ShippingRuleController;
+use App\Http\Controllers\Backend\StripeSettingController;
 use App\Models\ChildCategory;
 
 Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
@@ -109,3 +110,5 @@ Route::resource('shipping-rules', ShippingRuleController::class);
 // Paypal Settings
 Route::get('payment-setting', [PaymentSettingController::class, 'index'])->name('payment-setting.index');
 Route::resource('paypal-settings', PayPalSettingController::class);
+// Stripe Settings Route
+Route::put('stripe-setting/update/{id}', [StripeSettingController::class, 'update'])->name('stripe-setting.update');

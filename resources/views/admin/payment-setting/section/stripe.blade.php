@@ -1,23 +1,23 @@
-<div class="tab-pane fade show active" id="list-paypal" role="tabpanel" aria-labelledby="list-paypal-list">
+<div class="tab-pane fade show" id="list-stripe" role="tabpanel" aria-labelledby="list-stripe-list">
     <div class="card border">
         <div class="card-body">
-            <form action="{{ route('admin.paypal-settings.update', 1) }}" method="POST">
+            <form action="{{ route('admin.stripe-setting.update', 1) }}" method="POST">
                 @csrf
                 @method('PUT')
 
                 <div class="form-group">
-                    <label>Paypal Status</label>
+                    <label>Stripe Status</label>
                     <select name="status" class="form-control" required>
-                        <option {{ $paypal_setting->status === 1 ? 'selected' : '' }} value="1">Enable</option>
-                        <option {{ $paypal_setting->status === 0 ? 'selected' : '' }} value="0">Disable</option>
+                        <option {{ $stripe_setting->status === 1 ? 'selected' : '' }} value="1">Enable</option>
+                        <option {{ $stripe_setting->status === 0 ? 'selected' : '' }} value="0">Disable</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label>Account Mode</label>
                     <select name="account_mode" class="form-control" required>
-                        <option {{ $paypal_setting->pay_mode === 1 ? 'selected' : '' }} value="1">Live</option>
-                        <option {{ $paypal_setting->pay_mode === 0 ? 'selected' : '' }} value="0">Sandbox</option>
+                        <option {{ $stripe_setting->pay_mode === 1 ? 'selected' : '' }} value="1">Live</option>
+                        <option {{ $stripe_setting->pay_mode === 0 ? 'selected' : '' }} value="0">Sandbox</option>
                     </select>
                 </div>
 
@@ -26,7 +26,7 @@
                     <select name="country_name" class="form-control select2" required>
                         <option value="">Select</option>
                         @foreach (config('setting.country_list') as $country)
-                            <option {{ $country === $paypal_setting->country_name ? 'selected' : '' }}
+                            <option {{ $country === $stripe_setting->country_name ? 'selected' : '' }}
                                 value="{{ $country }}">{{ $country }}</option>
                         @endforeach
                     </select>
@@ -37,27 +37,27 @@
                     <select name="currency_name" class="form-control select2" required>
                         <option value="">Select</option>
                         @foreach (config('setting.currency_list') as $key => $currency)
-                            <option {{ $currency === $paypal_setting->currency_name ? 'selected' : '' }}
+                            <option {{ $currency === $stripe_setting->currency_name ? 'selected' : '' }}
                                 value="{{ $currency }}">{{ $key }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Currency Rate (Per USD)</label>
+                    <label>Currency Rate (Per {{ $stripe_setting->currency_name }})</label>
                     <input type="number" step="0.01" name="currency_rate"
-                        value="{{ $paypal_setting->currency_rate }}" class="form-control">
+                        value="{{ $stripe_setting->currency_rate }}" class="form-control">
                 </div>
 
                 <div class="form-group">
-                    <label>Paypal Client Id</label>
-                    <input type="text" name="client_id" value="{{ $paypal_setting->client_id }}"
+                    <label>Stripe Client Id</label>
+                    <input type="text" name="client_id" value="{{ $stripe_setting->client_id }}"
                         class="form-control">
                 </div>
 
                 <div class="form-group">
-                    <label>Paypal Secret Key</label>
-                    <input type="text" name="secret_key" value="{{ $paypal_setting->secret_key }}"
+                    <label>Stripe Secret Key</label>
+                    <input type="text" name="secret_key" value="{{ $stripe_setting->secret_key }}"
                         class="form-control">
                 </div>
 

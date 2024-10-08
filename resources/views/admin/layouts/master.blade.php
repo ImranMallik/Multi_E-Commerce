@@ -117,7 +117,6 @@
     {{-- Dynamic Delete Alert --}}
     <script>
         $(document).ready(function() {
-            $('.select2').select2();
             $('body').on('click', '.delet-item', function(event) {
                 event.preventDefault();
                 // alert();
