@@ -40,7 +40,7 @@ class PaymentController extends Controller
         $order = new Order();
         $order->invoice_id = rand(1, 999999);
         $order->user_id = Auth::user()->id;
-        $order->subtotal = getMainCartTotal();
+        $order->subtotal = getCartTotal();
         $order->amount = getFinalPayableAmount();
         $order->product_qty = \Cart::content()->count();
         $order->currency_name = $general_setting->currency_name;
@@ -50,8 +50,7 @@ class PaymentController extends Controller
         $order->order_address = json_encode(Session::get('shipping_address'));
         $order->shipping_method = json_encode(Session::get('shipping_method'));
         $order->coupon = json_encode(Session::get('coupon'));
-        $order->order_status = 0;
-        $order->save();
+        $order->order_status = 'pending';
 
         // Store Order Product
         foreach (\Cart::content() as $item) {
@@ -145,6 +144,8 @@ class PaymentController extends Controller
             ]
         ]);
 
+        // dd($response);
+
         if (isset($response['id']) && $response['id'] !== null) {
             foreach ($response['links'] as $link) {
                 if ($link['rel'] === 'approve') {
@@ -193,13 +194,22 @@ class PaymentController extends Controller
         $total = getFinalPayableAmount();
         $payableTotalAmount = round($total * $stripeSetting->currency_rate, 2);
         Stripe::setApiKey($stripeSetting->secret_key);
-        Charge::create([
+        $response = Charge::create([
             "amount" => $payableTotalAmount * 100,
             "currency" => $stripeSetting->currency_name,
             "source" => $request->stripe_token,
-            "description" => "Payment Test"
+            "description" => "Product Purchase!"
         ]);
 
-        // dd('success');
+        // dd($response);
+
+        if ($response->status === 'succeeded') {
+            $this->storeOrderData('stripe', 1, $response->id, $payableTotalAmount, $stripeSetting->currency_name);
+            $this->clearSession();
+            return redirect()->route('user.payment-success');
+        } else {
+            toastr('Something went wrong Please try again later', 'error', 'Error');
+            return redirect()->route('user.payment');
+        }
     }
 }

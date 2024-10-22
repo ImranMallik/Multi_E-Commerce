@@ -36,6 +36,9 @@
                                 <button class="nav-link common_btn" id="v-pills-home-tab" data-bs-toggle="pill"
                                     data-bs-target="#v-pills-stripe" type="button" role="tab"
                                     aria-controls="v-pills-stripe" aria-selected="true">Stripe</button>
+                                <button class="nav-link common_btn" id="v-pills-home-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-razorpay" type="button" role="tab"
+                                    aria-controls="v-pills-stripe" aria-selected="true">Razorpay</button>
 
                             </div>
                         </div>
@@ -93,7 +96,7 @@
                                 <div class="row">
                                     <div class="col-xl-12 m-auto">
                                         <div class="wsus__payment_area">
-                                            {{-- <button class="nav-link common_btn">pay with paypal</button> --}}
+
                                             <a class="nav-link common_btn text-center"
                                                 href="{{ route('user.payment.paypal') }}">pay with paypal</a>
                                         </div>
@@ -101,10 +104,8 @@
                                 </div>
                             </div>
                             @include('frontend.pages.payment-getway.stripe')
-                            {{-- <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
-                                aria-labelledby="v-pills-profile-tab">
+                            @include('frontend.pages.payment-getway.razorpay')
 
-                            </div> --}}
 
                         </div>
                     </div>

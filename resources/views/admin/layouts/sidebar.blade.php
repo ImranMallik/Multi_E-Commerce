@@ -43,7 +43,43 @@
                 </ul>
             </li>
             {{-- End Category --}}
+            {{-- Order sidebar --}}
+            <li class="dropdown {{ setActive(['admin.orders.*', 'admin.pending-orders']) }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+                    <i class="fas fa-box"></i>
+                    <span>Orders</span>
+                </a>
 
+                <ul class="dropdown-menu">
+                    <li
+                        class="{{ setActive(['admin.orders.*', 'admin.pending-orders.*', 'admin.processed-orders.*', 'admin.dropped-orders.*']) }}">
+                        <a class="nav-link" href="{{ route('admin.orders.index') }}">
+                            <i class="fas fa-receipt"></i>
+                            All Orders
+                        </a>
+                    </li>
+                    <li class="{{ setActive(['admin.pending-orders']) }}">
+                        <a class="nav-link" href="{{ route('admin.pending-orders') }}">
+                            <i class="fas fa-th-list"></i>
+                            Pending Orders
+                        </a>
+                    </li>
+                    <li class="{{ setActive(['admin.processed-orders']) }}">
+                        <a class="nav-link" href="{{ route('admin.processed-orders') }}">
+                            <i class="fas fa-sitemap"></i>
+                            Processed Orders
+                        </a>
+                    </li>
+                    <li class="{{ setActive(['admin.dropped-orders']) }}">
+                        <a class="nav-link" href="{{ route('admin.dropped-orders') }}">
+                            <i class="fas fa-file-invoice"></i>
+                            Dropped Orders
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            {{-- End Sidebar --}}
             {{-- Manage Product --}}
             <li
                 class="dropdown {{ setActive([

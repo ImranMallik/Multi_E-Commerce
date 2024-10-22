@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCategoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\FlashSaleController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PaymentSettingController;
 use App\Http\Controllers\Backend\PayPalSettingController;
 use App\Http\Controllers\Backend\ProductController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ProductVariantItemController;
+use App\Http\Controllers\Backend\RazorPaySettingController;
 use App\Http\Controllers\Backend\SellerPendingProductController;
 use App\Http\Controllers\Backend\SellerProductController;
 use App\Http\Controllers\Backend\SettingController;
@@ -106,9 +108,20 @@ Route::resource('coupons', CouponController::class);
 Route::put('shipping-rules-status-change', [ShippingRuleController::class, 'changeStatus'])->name('shipping-rules-status-change');
 Route::resource('shipping-rules', ShippingRuleController::class);
 
+//Order Route------------
+Route::get('change-order/status', [OrderController::class, 'changeStatus'])->name('change-order.status');
+Route::get('change-payment/status', [OrderController::class, 'paymentChangeStatus'])->name('change-payment.status');
+Route::get('pending-orders', [OrderController::class, 'pendingOrder'])->name('pending-orders');
+Route::get('processed-orders', [OrderController::class, 'processedOrder'])->name('processed-orders');
+Route::get('dropped-orders', [OrderController::class, 'droppedOrder'])->name('dropped-orders');
+Route::resource('orders', OrderController::class);
 
+// -----------Payment Route --------
 // Paypal Settings
 Route::get('payment-setting', [PaymentSettingController::class, 'index'])->name('payment-setting.index');
 Route::resource('paypal-settings', PayPalSettingController::class);
 // Stripe Settings Route
 Route::put('stripe-setting/update/{id}', [StripeSettingController::class, 'update'])->name('stripe-setting.update');
+// RazorPay Settings Route
+Route::put('razor-pay-setting/update/{id}', [RazorPaySettingController::class, 'update'])->name('razor-pay-setting.update');
+// END

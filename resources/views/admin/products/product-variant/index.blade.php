@@ -50,7 +50,7 @@
                     url: "{{ route('admin.product-variant.change-status') }}",
                     method: 'PUT',
                     data: {
-                        status: isChecked, // Send the checked state as status
+                        status: isChecked,
                         id: id
                     },
                     success: function(data) {

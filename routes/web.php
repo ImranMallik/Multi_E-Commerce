@@ -63,8 +63,10 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     Route::get('payment/cancel', [PaymentController::class, 'paypalCancel'])->name('paypal.cancel');
     // Stripe Payment
     Route::post('payment/stripe', [PaymentController::class, 'payWithStripe'])->name('payment.stripe');
-    Route::get('payment/success', [PaymentController::class, 'stripeSuccess'])->name('stripe.success');
-    Route::get('payment/cancel', [PaymentController::class, 'stripeCancel'])->name('stripe.cancel');
+    Route::get('stripe/payment/success', [PaymentController::class, 'stripeSuccess'])->name('stripe.success');
+    Route::get('stripe/payment/cancel', [PaymentController::class, 'stripeCancel'])->name('stripe.cancel');
+    // RazorPay Payment
+    Route::post('payment/RazorPay', [PaymentController::class, 'payWithRazorPay'])->name('payment.razorpay');
 });
 
 // Custom Flash Sale Controller

@@ -21,8 +21,8 @@
                                             data-toggle="list" href="#list-paypal" role="tab">Paypal</a>
                                         <a class="list-group-item list-group-item-action" id="list-stripe-list"
                                             data-toggle="list" href="#list-stripe" role="tab">Stripe</a>
-                                        <a class="list-group-item list-group-item-action" id="list-messages-list"
-                                            data-toggle="list" href="#list-messages" role="tab">Messages</a>
+                                        <a class="list-group-item list-group-item-action" id="list-razorpay-list"
+                                            data-toggle="list" href="#list-razorpay" role="tab">RazorPay</a>
                                         <a class="list-group-item list-group-item-action" id="list-settings-list"
                                             data-toggle="list" href="#list-settings" role="tab">Settings</a>
                                     </div>
@@ -31,14 +31,8 @@
                                     <div class="tab-content" id="nav-tabContent">
                                         @include('admin.payment-setting.section.paypal')
                                         @include('admin.payment-setting.section.stripe')
-                                        <div class="tab-pane fade" id="list-messages" role="tabpanel"
-                                            aria-labelledby="list-messages-list">
-                                            In quis non esse eiusmod sunt fugiat magna pariatur officia anim ex officia
-                                            nostrud amet nisi pariatur eu est id ut exercitation ex ad reprehenderit dolore
-                                            nostrud sit ut culpa consequat magna ad labore proident ad qui et tempor
-                                            exercitation in aute veniam et velit dolore irure qui ex magna ex culpa enim
-                                            anim ea mollit consequat ullamco exercitation in.
-                                        </div>
+                                        @include('admin.payment-setting.section.razorpay')
+
                                         <div class="tab-pane fade" id="list-settings" role="tabpanel"
                                             aria-labelledby="list-settings-list">
                                             Lorem ipsum culpa in ad velit dolore anim labore incididunt do aliqua sit veniam
