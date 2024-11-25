@@ -44,7 +44,7 @@ function productType(string $type): string
       return 'Top';
     case 'is_best':
       return 'Best';
-    case 'featured_product':
+    case 'is_fetured':
       return 'Featured';
     default:
       return '';

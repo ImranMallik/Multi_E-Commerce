@@ -24,10 +24,10 @@ class PendingOrderDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
                 $showBtn = "<a href='" . route('admin.orders.show', $query->id) . "' class='btn btn-warning'><i class='far fa-eye'></i></a>";
-                $deleteBtn = "<a  class='btn btn-danger ml-2 delet-item'><i class='fas fa-trash-alt'></i></a>";
-                $statusBtn = "<a class='btn btn-info ml-2'><i class='fas fa-truck'></i></a>";
+                $deleteBtn = "<a href='" . route('admin.orders.destroy', $query->id) . "'  class='btn btn-danger ml-2 delet-item'><i class='fas fa-trash-alt'></i></a>";
 
-                return $showBtn . $deleteBtn . $statusBtn;
+
+                return $showBtn . $deleteBtn;
             })
             ->addColumn('customer', function ($query) {
                 return $query->user->name;

@@ -8,6 +8,12 @@
     <ul class="dashboard_link">
         <li><a class="active" href="{{ route('vendor.dashboard') }}"><i class="fas fa-tachometer"></i>Dashboard</a></li>
         <li>
+            <a href="{{ route('vendor.orders') }}">
+                <i class="fas fa-box"></i> Orders
+            </a>
+        </li>
+
+        <li>
             <a href="{{ route('vendor.products.index') }}">
                 <i class="fas fa-shopping-bag"></i> Product
             </a>

@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Models\Order;
 use App\Models\ShippedOrder;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -22,16 +23,68 @@ class ShippedOrderDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'shippedorder.action')
+            ->addColumn('action', function ($query) {
+                $showBtn = "<a href='" . route('admin.orders.show', $query->id) . "' class='btn btn-warning'><i class='far fa-eye'></i></a>";
+                $deleteBtn = "<a href='" . route('admin.orders.destroy', $query->id) . "' class='btn btn-danger ml-2 delet-item'><i class='fas fa-trash-alt'></i></a>";
+
+
+                return $showBtn . $deleteBtn;
+            })
+            ->addColumn('customer', function ($query) {
+                return $query->user->name;
+            })
+            ->addColumn('date', function ($query) {
+                return date('d-M-Y', strtotime($query->created_at));
+            })
+            ->addColumn('order_status', function ($query) {
+                switch ($query->order_status) {
+                    case 'pending':
+                        return "<span class='badge bg-warning'>pending</span>";
+                        break;
+                    case 'processed_and_ready_to_ship':
+                        return "<span class='badge bg-info'>processed</span>";
+                        break;
+                    case 'dropped_off':
+                        return "<span class='badge bg-info'>dropped off</span>";
+                        break;
+                    case 'shipped':
+                        return "<span class='badge bg-info'>shipped</span>";
+                        break;
+                    case 'out_of_delivery':
+                        return "<span class='badge bg-primary'>out of delivery</span>";
+                        break;
+                    case 'delivered':
+                        return "<span class='badge bg-success'>delivered</span>";
+                        break;
+                    case 'canceled':
+                        return "<span class='badge bg-danger'>canceled</span>";
+                        break;
+
+                    default:
+                        break;
+                }
+            })
+            ->addColumn('amount', function ($query) {
+                return $query->currency_icon . $query->amount;
+            })
+
+            ->addColumn('payment_status', function ($query) {
+                if ($query->payment_status === 1) {
+                    return "<span class='badge bg-success'>complete</span>";
+                } else {
+                    return "<span class='badge bg-warning'>pending</span>";
+                }
+            })
+            ->rawColumns(['order_status', 'amount', 'action', 'payment_status'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(ShippedOrder $model): QueryBuilder
+    public function query(Order $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->where('order_status', 'shipped')->newQuery();
     }
 
     /**
@@ -40,20 +93,20 @@ class ShippedOrderDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('shippedorder-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('shippedorder-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(0)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -62,15 +115,21 @@ class ShippedOrderDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
             Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('invoice_id'),
+            // Column::make('user_id'),
+            Column::make('customer'),
+            Column::make('date')->width(120),
+            Column::make('product_qty'),
+            Column::make('amount'),
+            Column::make('order_status'),
+            Column::make('payment_method'),
+            Column::make('payment_status'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(200)
+                ->addClass('text-center'),
         ];
     }
 

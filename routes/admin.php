@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ChildCategoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\FlashSaleController;
+use App\Http\Controllers\Backend\HomePageSettingController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PaymentSettingController;
 use App\Http\Controllers\Backend\PayPalSettingController;
@@ -26,7 +27,9 @@ use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\ShippingRouleController;
 use App\Http\Controllers\Backend\ShippingRuleController;
 use App\Http\Controllers\Backend\StripeSettingController;
+use App\Http\Controllers\Backend\TransactionController;
 use App\Models\ChildCategory;
+use App\Models\HomePageSetting;
 
 Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 // Profile Link------------
@@ -114,7 +117,21 @@ Route::get('change-payment/status', [OrderController::class, 'paymentChangeStatu
 Route::get('pending-orders', [OrderController::class, 'pendingOrder'])->name('pending-orders');
 Route::get('processed-orders', [OrderController::class, 'processedOrder'])->name('processed-orders');
 Route::get('dropped-orders', [OrderController::class, 'droppedOrder'])->name('dropped-orders');
+Route::get('shipped-orders', [OrderController::class, 'shippedOrder'])->name('shipped-orders');
+Route::get('out-of-delivery-orders', [OrderController::class, 'outOfdeliveryOrder'])->name('outofdelevery-orders');
+Route::get('delivered-orders', [OrderController::class, 'deliveredOrder'])->name('delivered-orders');
+Route::get('cancel-orders', [OrderController::class, 'cancelOrder'])->name('cancel-orders');
 Route::resource('orders', OrderController::class);
+
+// Order Transaction Route
+
+Route::get('transaction-orders', [TransactionController::class, 'index'])->name('transaction-orders');
+
+// Home Page Setting Route
+Route::get('home-page-setting', [HomePageSettingController::class, 'index'])->name('home-page-setting');
+Route::post('popular-page-setting', [HomePageSettingController::class, 'storePopularData'])->name('popular-page-setting');
+// Product Slider Section Route
+Route::put('product-slider-section-one', [HomePageSettingController::class, 'updateProductSliderData'])->name('product-slider-section-one');
 
 // -----------Payment Route --------
 // Paypal Settings

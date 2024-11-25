@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\DataTables\CanceledOrderDataTable;
+use App\DataTables\DeliveryOrderDataTable;
 use App\DataTables\DroppedOrderDataTable;
 use App\DataTables\OrderDataTable;
+use App\DataTables\OutOfDeliveryDataTable;
 use App\DataTables\PendingOrderDataTable;
 use App\DataTables\ProcessedOrderDataTable;
+use App\DataTables\ShippedOrderDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -56,7 +60,12 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $orderId = Order::findOrFail($id);
+        $orderId->transaction()->delete();
+        $orderId->orderproducts()->delete();
+        $orderId->delete();
+
+        return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
 
     public function changeStatus(Request $request)
@@ -92,5 +101,25 @@ class OrderController extends Controller
     public function droppedOrder(DroppedOrderDataTable $dataTable)
     {
         return $dataTable->render('admin.order.dropped-order');
+    }
+
+    public function shippedOrder(ShippedOrderDataTable $dataTable)
+    {
+        return $dataTable->render('admin.order.shipped-order');
+    }
+
+    public function outOfdeliveryOrder(OutOfDeliveryDataTable $dataTable)
+    {
+        return $dataTable->render('admin.order.out-of-delivery');
+    }
+
+    public function deliveredOrder(DeliveryOrderDataTable $dataTable)
+    {
+        return $dataTable->render('admin.order.delivered');
+    }
+
+    public function cancelOrder(CanceledOrderDataTable $dataTable)
+    {
+        return $dataTable->render('admin.order.cancel-order');
     }
 }

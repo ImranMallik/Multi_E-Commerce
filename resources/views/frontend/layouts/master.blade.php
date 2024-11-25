@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/2.0.3/css/dataTables.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
     <!-- <link rel="stylesheet" href="css/rtl.css"> -->
 </head>
 
@@ -133,7 +135,10 @@
     <!--classycountdown js-->
     <script src="{{ asset('frontend/assets/js/jquery.classycountdown.js') }}"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js
-                                                            "></script>
+                                                                                                "></script>
+
+    <script src="//cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
 
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
@@ -144,6 +149,11 @@
                 toastr.error("{{ $error }}")
             @endforeach
         @endif
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.auto_click').click();
+        });
     </script>
     @include('frontend.layouts.script')
     @stack('scripts')

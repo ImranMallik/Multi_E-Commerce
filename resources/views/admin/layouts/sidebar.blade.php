@@ -8,7 +8,7 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="dropdown active">
+            <li class="dropdown">
                 <a href="{{ route('admin.dashboard') }}" class="nav-link"><i
                         class="fas fa-fire"></i><span>Dashboard</span></a>
 
@@ -52,7 +52,7 @@
 
                 <ul class="dropdown-menu">
                     <li
-                        class="{{ setActive(['admin.orders.*', 'admin.pending-orders.*', 'admin.processed-orders.*', 'admin.dropped-orders.*']) }}">
+                        class="{{ setActive(['admin.orders.*', 'admin.pending-orders.*', 'admin.processed-orders.*', 'admin.dropped-orders.*', 'admin.shipped-orders.*', 'admin.outofdelevery-orders.*', 'admin.delivered-orders.*', 'admin.cancel-orders.*']) }}">
                         <a class="nav-link" href="{{ route('admin.orders.index') }}">
                             <i class="fas fa-receipt"></i>
                             All Orders
@@ -76,8 +76,41 @@
                             Dropped Orders
                         </a>
                     </li>
+                    <li class="{{ setActive(['admin.shipped-orders']) }}">
+                        <a class="nav-link" href="{{ route('admin.shipped-orders') }}">
+                            <i class="fas fa-shipping-fast"></i>
+                            Shipped Orders
+                        </a>
+                    </li>
+                    <li class="{{ setActive(['admin.outofdelevery-orders']) }}">
+                        <a class="nav-link" href="{{ route('admin.outofdelevery-orders') }}">
+                            <i class="fas fa-truck"></i>
+                            Out Of Delivery
+                        </a>
+                    </li>
+                    <li class="{{ setActive(['admin.delivered-orders']) }}">
+                        <a class="nav-link" href="{{ route('admin.delivered-orders') }}">
+                            <i class="fas fa-check-circle"></i>
+                            Delivered Order
+                        </a>
+                    </li>
+                    <li class="{{ setActive(['admin.cancel-orders']) }}">
+                        <a class="nav-link" href="{{ route('admin.cancel-orders') }}">
+                            <i class="fas fa-times-circle"></i>
+                            Cancel Order
+                        </a>
+                    </li>
+
                 </ul>
             </li>
+
+            <li class="{{ setActive(['admin.transaction-orders']) }}">
+                <a class="nav-link" href="{{ route('admin.transaction-orders') }}">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Transactions</span>
+                </a>
+            </li>
+
 
             {{-- End Sidebar --}}
             {{-- Manage Product --}}
@@ -129,7 +162,7 @@
             </li>
             {{-- End --}}
 
-            <li class="dropdown {{ setActive(['admin.slider.*']) }}">
+            <li class="dropdown {{ setActive(['admin.slider.*', 'admin.home-page-setting']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                     <i class="fas fa-cogs"></i>
                     <span>Manage Website</span>
@@ -142,6 +175,15 @@
                         </a>
                     </li>
                 </ul>
+                <ul class="dropdown-menu">
+                    <li class="{{ setActive(['admin.home-page-setting']) }}">
+                        <a class="nav-link" href="{{ route('admin.home-page-setting') }}">
+                            <i class="fas fa-cogs"></i>
+                            Home Setting
+                        </a>
+                    </li>
+                </ul>
+
             </li>
 
 

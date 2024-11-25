@@ -51,7 +51,7 @@ class ProductDataTable extends DataTable
                     case 'is_best':
                         return '<i class = "badge badge-warning">Best Product</i>';
                         break;
-                    case 'featured_product':
+                    case 'is_fetured':
                         return '<i class = "badge badge-primary">Featured Product</i>';
                         break;
                     default:
@@ -82,7 +82,7 @@ class ProductDataTable extends DataTable
      */
     public function query(Product $model): QueryBuilder
     {
-        return $model->where('vendor_id', Auth::user()->vendor->id)->newQuery();
+        return $model->where('vendor_id', Auth::user()->vendor->user_id)->newQuery();
     }
 
     /**

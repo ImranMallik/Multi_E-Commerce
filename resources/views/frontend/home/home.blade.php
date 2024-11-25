@@ -162,7 +162,7 @@
 
      @include('frontend.home.sections.category-product-slider-one')
 
-     @include('frontend.home.sections.category-product-slide-two')
+     {{-- @include('frontend.home.sections.category-product-slide-two') --}}
 
      @include('frontend.home.sections.large-banner')
 
